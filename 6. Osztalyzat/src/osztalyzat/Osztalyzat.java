@@ -35,7 +35,7 @@ public class Osztalyzat {
                 break;
 
             default:
-                System.out.println("nem baj");
+                System.out.println("Ilyen osztályzat nincs");
         }
 
     }
