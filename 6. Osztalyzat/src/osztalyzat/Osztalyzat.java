@@ -9,9 +9,8 @@ public class Osztalyzat {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Kérem, adjon meg egy osztályzatot: ");
-        int osztalyzat;
-        osztalyzat = sc.nextInt();
-
+        int osztalyzat = sc.nextInt();
+        
         switch (osztalyzat) {
 
             case 1:
@@ -27,11 +26,11 @@ public class Osztalyzat {
                 break;
 
             case 4:
-                System.out.println("jeles");
+                System.out.println("jó");
                 break;
 
             case 5:
-                System.out.println("kitűnő");
+                System.out.println("jeles");
                 break;
 
             default:
