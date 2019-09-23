@@ -10,16 +10,16 @@ public class WhileDemo {
 
         
         
-        int osztalyzat;
+        int mark;
         
         do {
             
-            System.out.println("Kérem, adjon meg egy osztályzatot: ");
-            osztalyzat = sc.nextInt();
+            System.out.println("Please enter a mark: ");
+            mark = sc.nextInt();
         
-        } while (osztalyzat < 1 || osztalyzat > 5);
+        } while (mark < 1 || mark > 5);
         
-        System.out.println("Ez egy helyes osztályzat!");
+        System.out.println("That's an existing mark");
 
     }
 

@@ -25,6 +25,9 @@ public class Between2Numbers {
                 
             }
             
+            System.out.println("Sum of the numbers between "+ firstNumber 
+                    + " and " + secondNumber + " is " + sum + ".");
+            
         } else {
             
             for (int i = secondNumber + 1; i < firstNumber; i++) {
@@ -33,10 +36,11 @@ public class Between2Numbers {
                 sum += i;
                 
             }
+        
+            System.out.println("Sum of the numbers between "+ secondNumber 
+                    + " and " + firstNumber + " is " + sum + ".");
             
         }     
-        
-        System.out.println("Sum of the numbers between: " + sum);
         
     }
     
