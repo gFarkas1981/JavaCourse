@@ -4,6 +4,7 @@
 /10. UnitConverter/nbproject/private/
 /10. UnitConverter/build/
 /SwitchString/nbproject/private/
+.properties
 /SwitchString/build/
 /11. SwitchString/build/
 /11. SwitchString/nbproject/private/
@@ -69,3 +70,8 @@
 /25. SumProdMinMaxSmallerThan10/nbproject/private/
 /JavaApplication8/nbproject/private/
 /25. SumProdMinMaxSmallerThan10/build/
+/26. Contains7/nbproject/private/
+/26. Contains7/build/
+26. Contains7/nbproject/project.properties
+26. Contains7/nbproject/genfiles.properties
+26. Contains7/manifest.mf
