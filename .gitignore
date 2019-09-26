@@ -2,3 +2,17 @@
 **/*.properties
 **/build
 **/*.mf
+/32. ATM 1.0/nbproject/private/
+/34. EvenNumbersInArray/nbproject/private/
+/35. ReverseArray/nbproject/private/
+/35. ReverseArray/dist/
+/36. CellPhonePrice/nbproject/private/
+/37. BeerGlasses/nbproject/private/
+/38. EvenOddArray/nbproject/private/
+/39. SetTheory/nbproject/private/
+/39. SetTheory/dist/
+/40. First30Sqrt/nbproject/private/
+/41. First50Primes/nbproject/private/
+/42. NbyN_Matrix/nbproject/private/
+/43. Sum2Matrices/nbproject/private/
+/44. ProductOf2Matrices/nbproject/private/
