@@ -5,12 +5,11 @@ package settheory;
  * @author Gabor Farkas <info@gfarkas.com>
  */
 public class Intersection {
-
-    public void intersectionMethod(int[] array1, int[] array2) {
-
-        //  The INTERSECTION of {1, 2, 3} and {2, 3, 4} is the set {2, 3}.
+    
+    public static int commonElementsOfTwoArrays(int[] array1, int[] array2) {
+        
         int commonElements = 0;
-
+        
         // counting common elements
         for (int array1Element = 0; array1Element < array1.length; array1Element++) {
 
@@ -52,7 +51,28 @@ public class Intersection {
 
         }
         
-         System.out.println("Number of common elements: " + commonElements);
+        return commonElements;
+        
+    }
+    
+    public static boolean arrayContains(int[] array, int number) {
+        
+        for (int element : array) {
+            
+            if (element == number) {
+                
+                return true;
+                
+            }
+            
+        }
+        
+        return false;
+        
+    }
+    
+    public static int[] createIntersectionOfTwoArrays(int[] array1, int[] array2, int commonElements) {
+        
         int[] intersection = new int[commonElements];
         int intersectionIndex = 0;
         
@@ -98,7 +118,20 @@ public class Intersection {
 
         }
         
+        return intersection;
+        
+    }
+
+    public void intersectionMethod(int[] array1, int[] array2) {
+
+        
+        int commonElements = commonElementsOfTwoArrays(array1, array2);
+        
+        System.out.println("Number of common elements: " + commonElements);
+                
         System.out.print("Intersection:\t");
+        
+        int[] intersection = createIntersectionOfTwoArrays(array1, array2, commonElements);
         
         for (int element : intersection) {
             

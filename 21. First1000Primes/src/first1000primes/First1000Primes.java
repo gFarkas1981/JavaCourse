@@ -2,10 +2,26 @@ package first1000primes;
 
 public class First1000Primes {
 
+    public static boolean isPrime(int number) {
+        
+        boolean isPrime = true;
+        
+        for (int i = 2; i <= number / 2; i++) {
+            
+            if (number % i == 0) {
+                
+                isPrime = false;
+                break;
+                
+            }
+            
+        }
+        
+    }
+    
     public static void main(String[] args) {
 
         int primeCounter = 6;
-        boolean isPrime = true;
 
         System.out.println("First 1000 Prime number:");
         System.out.println("1. prime number is: 2");
@@ -18,25 +34,14 @@ public class First1000Primes {
 
         while (primeCounter <= 1000) {
 
-            isPrime = true;
-
-            for (int divisor = 2; divisor < (possiblePrime / 2); divisor++) {
-
-                if (possiblePrime % divisor == 0) {
-
-                    isPrime = false;
-                    break;
-
-                }
-
-            }
-
-            if (isPrime) {
+            if (isPrime(possiblePrime)) {
 
                 System.out.println(primeCounter + ". prime number is: " + possiblePrime);
                 primeCounter++;
-
+                sout    
             }
+            
+            sout         
 
             possiblePrime++;
 

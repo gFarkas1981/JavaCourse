@@ -5,46 +5,48 @@ package settheory;
  * @author Gabor Farkas <info@gfarkas.com>
  */
 public class Union {
+    
+    //  The UNION of {1, 2, 3} and {2, 3, 4} is the set {1, 2, 3, 4}.
 
-    public void unionMethod(int[] array1, int[] array2) {
-
-        //  The UNION of {1, 2, 3} and {2, 3, 4} is the set {1, 2, 3, 4}.
-        int[] allElements = new int[array1.length + array2.length];
-        System.out.print("All elements:\t");
-
-        // putting all elements of the two array to a new one (allElements)
+    public static int[] sumArrays(int[] array1, int[] array2) {
+        
+        int[] outputArray = new int[array1.length + array2.length];
+        
         for (int i = 0; i < array1.length + array2.length; i++) {
 
             if (i < array1.length) {
 
-                allElements[i] = array1[i];
+                outputArray[i] = array1[i];
 
             } else {
 
-                allElements[i] = array2[i - array1.length];
+                outputArray[i] = array2[i - array1.length];
 
             }
 
-            System.out.print(allElements[i]+ " ");
-
         }
 
-        // counting repetition in allElements
-        int[] nrOfRepetition = new int[allElements.length];
+        return outputArray;
 
-        for (int i = 0; i < allElements.length - 1; i++) {
-            
+    }
+    
+    public static int[] countRepetitionsInArray(int[] inputArray) {
+        
+        int[] nrOfRepetition = new int[inputArray.length];
+
+        for (int i = 0; i < inputArray.length - 1; i++) {
+
             // comparing actual elements to the following elements
-            for (int j = i + 1; j < allElements.length; j++) {
+            for (int j = i + 1; j < inputArray.length; j++) {
 
                 // if actual element equals to one of the following elements
-                if (allElements[i] == allElements[j]) {
+                if (inputArray[i] == inputArray[j]) {
 
                     nrOfRepetition[i] += 1;
 // but if we had one or more repetition before this element in allElements...
                     for (int k = 0; k < i; k++) {
 
-                        if (allElements[k] == allElements[i]) {
+                        if (inputArray[k] == inputArray[i]) {
 
                             nrOfRepetition[i] = 0;
 
@@ -56,42 +58,38 @@ public class Union {
 
             }
 
-        }
-           
+        }        
+        
+        return nrOfRepetition;
+        
+    }
+    
+    public static int[] createUnionArray(int[] sumOfTwoArrays, int[] nrOfRepetitions) {
+        
         // initializing the length of the union array
-        int unionLength = allElements.length;
+        int unionLength = sumOfTwoArrays.length;
 
-        System.out.println("");
-        System.out.print("Repetations:\t");
+        // the union array's length will be:
+        for (int i : nrOfRepetitions) {
 
-        for (int i : nrOfRepetition) {
-            
-            unionLength -= nrOfRepetition[i];
-            System.out.print(i + " ");
-            
+            unionLength -= nrOfRepetitions[i];
             
         }
 
-        System.out.println("");
-
-        System.out.println("Length of union[]: " + unionLength);
-        // the union array's length will be:
         int[] union = new int[unionLength];
-
-        boolean uniqueElement = true;
-        int unionElementCounter = 0;
-
-        // iterating through allElements again
-        for (int i = 0; i < allElements.length - 1; i++) {
-
+        int unionArrayElementCounter = 0;
+        
+        // iterating through the sum of the two arrays
+        for (int i = 0; i < sumOfTwoArrays.length - 1; i++) {
+            
             // assuming that the element is unique
-            uniqueElement = true;
+            boolean uniqueElement = true;
 
             // comparing to the others
-            for (int j = i + 1; j < allElements.length; j++) {
+            for (int j = i + 1; j < sumOfTwoArrays.length; j++) {
 
                 // if there's a match
-                if (allElements[i] == allElements[j]) {
+                if (sumOfTwoArrays[i] == sumOfTwoArrays[j]) {
 
                     // this element is not unique
                     uniqueElement = false;
@@ -99,17 +97,59 @@ public class Union {
                 }
 
             }
-
+            
             // this element is unique
-            if (uniqueElement || nrOfRepetition[i] == 0) {
+            if (uniqueElement || nrOfRepetitions[i] == 0) {
 
                 // adding this element to the next position of the union
-                union[unionElementCounter] = allElements[i];
-                unionElementCounter++;
+                union[unionArrayElementCounter] = sumOfTwoArrays[i];
+                unionArrayElementCounter++;
                 //System.out.println(unionElementCounter);
             }
 
         }
+        
+        return union;
+        
+    }
+
+    public void unionMethod(int[] array1, int[] array2) {
+
+        System.out.print("All elements:\t");
+
+        // putting all elements of the two array to a new one (allElements)
+        int[] allElements = sumArrays(array1, array2);
+        
+        for (int element : allElements) {
+            
+            System.out.print(element + " ");
+            
+        }
+        
+        System.out.println("");
+        
+        // counting repetition in allElements
+        int[] nrOfRepetitions = countRepetitionsInArray(allElements);
+
+        System.out.print("Repetitions:\t");
+        
+        for (int element : nrOfRepetitions) {
+            
+            System.out.print(element + " ");
+            
+        }
+        
+        System.out.println("");
+
+        int[] union = createUnionArray(allElements, nrOfRepetitions);
+        
+        System.out.println("Length of union[]: " + union.length);
+
+        boolean uniqueElement = true;
+        int unionElementCounter = 0;
+
+        // Creating union set from the sum of the two arrays and 
+        // the array of the number of repetitions
 
         System.out.print("Union: ");
 

@@ -10,7 +10,7 @@ public class ATM {
 
     public static void main(String[] args) {
 
-        int[] bankNotes = {10000, 5000, 1000};
+        int[] bankNotes = {20000, 10000, 5000, 1000};
 
         Scanner scanner = new Scanner(System.in);
 
