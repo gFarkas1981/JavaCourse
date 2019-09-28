@@ -44,7 +44,7 @@ public class SquareOfAsterisks {
 
     public static void main(String[] args) {
 
-        towerDrawer(2, 12);
+        towerDrawer(4, 12);
 
     }
 
