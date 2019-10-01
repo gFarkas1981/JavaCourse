@@ -75,15 +75,21 @@ public class Lottery {
 
         Scanner scanner = new Scanner(System.in);
         int[] userNumbers = new int[5];
+        int userNumber = 0;
 
         for (int i = 0; i < 5; i++) {
 
-            while (userNumbers[i] < 1 || userNumbers[i] > 90) {
-                    
-                System.out.print("Please enter the " + (i + 1) + " number: ");
-                userNumbers[i] = scanner.nextInt();
-                
-            }
+            do {
+
+                System.out.print(
+                        "Please enter the " + (i + 1) + ". number: ");
+                userNumber = scanner.nextInt();
+
+            } while (userNumber < 1 ||
+                    userNumber > 90 ||
+                    arrayContains(userNumbers,userNumber));
+
+            userNumbers[i] = userNumber;
 
         }
         scanner.nextLine();
