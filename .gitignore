@@ -2,33 +2,9 @@
 **/*.properties
 **/build
 **/*.mf
-/32. ATM 1.0/nbproject/private/
-/34. EvenNumbersInArray/nbproject/private/
-/35. ReverseArray/nbproject/private/
-/35. ReverseArray/dist/
-/36. CellPhonePrice/nbproject/private/
-/37. BeerGlasses/nbproject/private/
-/38. EvenOddArray/nbproject/private/
-/39. SetTheory/nbproject/private/
-/39. SetTheory/dist/
-/40. First30Sqrt/nbproject/private/
-/41. First50Primes/nbproject/private/
-/42. NbyN_Matrix/nbproject/private/
-/43. Sum2Matrices/nbproject/private/
-/44. ProductOf2Matrices/nbproject/private/
-/45. FunctionDemo/nbproject/private/
-/26. AmicableNumbers/nbproject/private/
-/46. ArrayFunction/nbproject/private/
-/JavaApplication2/nbproject/private/
-/JavaApplication3/nbproject/private/
-/47. InverseArray/nbproject/private/
-/JavaApplication5/nbproject/private/
-/JavaApplication6/nbproject/private/
-/JavaApplication7/nbproject/private/
-/47. SquareOfAsterisks/nbproject/private/
-/48. Lottery/nbproject/private/
-/49. StringDemo/nbproject/private/
-/50. 3Amoba/nbproject/private/
-/51. OwnQuickSort/nbproject/private/
+**/private/
+**/dist/
+**/.idea
 *.iml
 *.class
+*.kotlin_module
