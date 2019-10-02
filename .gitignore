@@ -2,9 +2,8 @@
 **/*.properties
 **/build
 **/*.mf
-**/private/
-**/dist/
-**/.idea
+**/*.pb
 *.iml
+**/dist
 *.class
-*.kotlin_module
+**/.idea/
