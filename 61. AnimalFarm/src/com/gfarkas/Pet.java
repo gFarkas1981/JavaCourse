@@ -1,13 +1,13 @@
 package com.gfarkas;
 
-public class Puppy extends Animal{
+public class Pet extends Animal{
 
     protected String name;
 
-    public Puppy() {
+    public Pet() {
     }
 
-    public Puppy(String name) {
+    public Pet(String name) {
         this.name = name;
     }
 

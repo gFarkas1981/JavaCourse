@@ -1,18 +1,18 @@
 package com.gfarkas;
 
-public class Donkey extends Puppy{
+public class Donkey extends Pet {
 
-    protected boolean makacs;
+    protected boolean mule;
 
     public Donkey() {
     }
 
     public void setMakacs(boolean makacs) {
-        this.makacs = makacs;
+        this.mule = makacs;
     }
 
     public boolean isMakacs() {
-        return makacs;
+        return mule;
     }
 
     @Override
@@ -20,7 +20,7 @@ public class Donkey extends Puppy{
 
 
 
-            System.out.println("It's " + name + ", " + (makacs? "makacs" : "kezes") + " and " + age + " year old.");
+            System.out.println("It's " + name + ", " + (mule? "mule" : "well-mannered") + " and " + age + " year old.");
 
 
 

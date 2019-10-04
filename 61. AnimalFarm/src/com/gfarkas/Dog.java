@@ -1,6 +1,6 @@
 package com.gfarkas;
 
-public class Dog extends Puppy{
+public class Dog extends Pet implements Predator{
 
     protected int bones;
 
@@ -18,5 +18,12 @@ public class Dog extends Puppy{
     @Override
     public void makesNoise() {
         System.out.println("vau vau");
+    }
+
+    @Override
+    public void kill(Animal prey) {
+
+        System.out.println(getClass().getSimpleName() + " can kill a cat");
+
     }
 }

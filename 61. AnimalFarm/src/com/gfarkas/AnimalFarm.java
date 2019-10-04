@@ -5,25 +5,40 @@ public class AnimalFarm {
     public static void main(String[] args) {
 
         Donkey d1 = new Donkey();
-        d1.makacs = true;
-        d1.name = "Szamár";
+        d1.mule = true;
+        d1.name = "Little Donkey";
         d1.age = 12;
-        d1.makesNoise();
-        d1.display();
 
         Donkey d2 = new Donkey();
-        d1.makacs = false;
-        d1.name = "nemSzamár";
-        d1.age = 3;
-        d1.makesNoise();
-        d1.display();
+        d2.mule = false;
+        d2.name = "Donkey Kong";
+        d2.age = 3;
 
         Dog dog = new Dog();
         dog.bones = 8;
         dog.age = 4;
         dog.name = "Cuki";
-        dog.makesNoise();
-        dog.display();
+        dog.kill();
+
+        Tiger tiger = new Tiger();
+        tiger.age = 11;
+
+
+        Animal[] animals = new Animal[4];
+
+        animals[0] = d1;
+        animals[1] = d2;
+        animals[2] = dog;
+        animals[3]  = tiger;
+
+        for (Animal animal : animals) {
+
+            animal.makesNoise();
+            animal.display();
+
+        }
+
+
 
     }
 }

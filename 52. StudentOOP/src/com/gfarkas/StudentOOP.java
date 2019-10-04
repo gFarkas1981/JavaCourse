@@ -1,34 +1,36 @@
 package com.gfarkas;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class StudentOOP {
 
     public static void main(String[] args) {
 
-        Student[] students = new Student[3];
+        Student[] students = new Student[6];
 
         Student student1 = new Student(67, "Bela", 100);
-//        student1.reachedPoint = 70;
-//        student1.calcMark(100);
-        student1.setName("Geza");
-
-
         Student student2 = new Student(50, "Erika", 100);
-//        student2.reachedPoint = 50;
-//        student2.calcMark(100);
-        student2.setName("Timi");
-
-        Student student3 = new Student(77, "Jozsi");
-//        student3.reachedPoint = 77;
-        student3.calcMark(100);
-//        student3.name = "Erika";
+        Student student3 = new Student(77, "Józsi", 100);
+        Student student4 = new Student(88, "Géza", 100);
+        Student student5 = new Student(26, "Timi", 100);
+        Student student6 = new Student(59, "Gábor", 100);
 
         students[0] = student1;
         students[1] = student2;
         students[2] = student3;
+        students[3] = student4;
+        students[4] = student5;
+        students[5] = student6;
 
-        student1.display();
-        student2.display();
-        student3.display();
+        InsertionSort insertionSort = new InsertionSort();
+        insertionSort.sort(students);
+
+        for (Student student : students) {
+
+            student.display();
+
+        }
 
     }
 

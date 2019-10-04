@@ -1,6 +1,6 @@
 package com.gfarkas;
 
-public class Student {
+public class Student{
 
     private int reachedPoint;
     private String name;
