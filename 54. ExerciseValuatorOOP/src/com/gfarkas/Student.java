@@ -66,7 +66,9 @@ public class Student {
 
     public void display() {
 
-        System.out.println(name + "'s mark is: " + mark + " and the achieved score is "     + achievedScore);
+        System.out.println(name + "'s mark is: "
+                + mark + " and the achieved score is "
+                + achievedScore);
 
     }
 

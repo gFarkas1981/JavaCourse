@@ -7,3 +7,4 @@
 **/dist
 *.class
 **/.idea/
+*.kotlin_module

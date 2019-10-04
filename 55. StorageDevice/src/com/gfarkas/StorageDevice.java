@@ -2,10 +2,10 @@ package com.gfarkas;
 
 public class StorageDevice {
 
-    String name;
-    String type;
-    int capacity;
-    int freeSpace;
+    private String name;
+    private String type;
+    private int capacity;
+    private int freeSpace;
 
     public StorageDevice() {
     }
@@ -15,6 +15,15 @@ public class StorageDevice {
         this.type = type;
         this.capacity = capacity;
         this.freeSpace = freeSpace;
+    }
+
+    public void display() {
+
+        System.out.println("Name:" + this.getName() +
+                " | Type:" + this.getType() +
+                " | Free space: " + this.getFreeSpace() +
+                "MB out of " + this.getCapacity() + "MB.");
+
     }
 
     public String getName() {

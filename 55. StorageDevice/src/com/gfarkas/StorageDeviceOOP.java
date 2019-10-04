@@ -25,13 +25,20 @@ public class StorageDeviceOOP {
         storageDevices[16] = new StorageDevice("Seagate", "SSD",700000, 0);
         storageDevices[17] = new StorageDevice("Fujitsu", "SSD",512000, 200000);
         storageDevices[18] = new StorageDevice("Siemens", "SSD", 640000, 120000);
-        storageDevices[19] = new StorageDevice("Kamu-digital", "SSD", 1280000, 30000);
+        storageDevices[19] = new StorageDevice("Kamu-digital", "SSD", 128000, 30000);
+
+        int totalCapacity = 0;
+        int totalFree = 0;
 
         for (StorageDevice element: storageDevices) {
 
-            System.out.println("Name:" + element.name + " | Type:" + element.type + " | Free space: " + element.freeSpace + "MB out of " + element.capacity + "MB.");
-
+            element.display();
+            totalCapacity += element.getCapacity();
+            totalFree += element.getFreeSpace();
         }
+
+        System.out.println("Drives' total capacity is " + totalCapacity);
+        System.out.println("Drives' total free space is " + totalFree);
 
     }
 }

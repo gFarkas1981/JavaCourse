@@ -4,6 +4,18 @@ public class ExerciseValuator {
 
     public static void main(String[] args) {
 
+        ITStudent itStudent = new ITStudent();
+        itStudent.setName("Bill Gates");
+        itStudent.setFavLanguage("C#");
+        itStudent.setAchievedScore(12);
+        itStudent.evaluator(100);
+        itStudent.display();
+        itStudent.hateWindows("It's frozen again..");
+
+        ITStudent itStudent2 = new ITStudent("James Gosling", 54 , "Java");
+        itStudent2.evaluator(100);
+        itStudent2.display();
+
         PleaseEnter pleaseEnter = new PleaseEnter();
         int sizeOfTheClass = pleaseEnter.enterInt("Size of the class: ");
 
@@ -47,6 +59,7 @@ public class ExerciseValuator {
             }
 
         }
+
 
     }
 
