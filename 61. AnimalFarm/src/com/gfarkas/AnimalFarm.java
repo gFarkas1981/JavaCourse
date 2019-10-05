@@ -18,10 +18,11 @@ public class AnimalFarm {
         dog.bones = 8;
         dog.age = 4;
         dog.name = "Cuki";
-        dog.kill();
+        dog.kill(d2);
 
         Tiger tiger = new Tiger();
         tiger.age = 11;
+        tiger.kill(dog);
 
 
         Animal[] animals = new Animal[4];
@@ -37,6 +38,8 @@ public class AnimalFarm {
             animal.display();
 
         }
+
+
 
 
 

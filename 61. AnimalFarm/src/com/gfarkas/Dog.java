@@ -23,7 +23,14 @@ public class Dog extends Pet implements Predator{
     @Override
     public void kill(Animal prey) {
 
-        System.out.println(getClass().getSimpleName() + " can kill a cat");
+        System.out.println(this +
+                "can kill " + prey);
 
+    }
+
+
+    @Override
+    public String toString() {
+        return "a " + age + " year old Dog ";
     }
 }

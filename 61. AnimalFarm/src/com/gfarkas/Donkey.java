@@ -30,4 +30,10 @@ public class Donkey extends Pet {
     public void makesNoise() {
         System.out.println("iá");
     }
+
+    @Override
+    public String toString() {
+        return name + " a " + age + " years old " + (mule? "mule" : "well-mannered") +
+                " Donkey.";
+    }
 }
