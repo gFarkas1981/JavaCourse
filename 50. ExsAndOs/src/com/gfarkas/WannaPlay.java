@@ -2,32 +2,36 @@ package com.gfarkas;
 
 public class WannaPlay {
 
+    private boolean validAnswer;
+    private String answer;
+
     protected boolean wannaPlay() {
 
         StringScanner stringScanner = new StringScanner();
+        ValidYesNo validYesNo = new ValidYesNo();
 
-        boolean wrongAnswer = true;
         boolean newGame = false;
 
 
-        while (wrongAnswer) {
+        while (!validAnswer) {
 
             new HorizontalLine();
-            String answer = stringScanner.stringScanner("Do you want to play another game? (y/n)");
+            answer = stringScanner.stringScanner("Do you want to play another game? (y/n)");
             new HorizontalLine();
 
-            if (answer.equalsIgnoreCase("y")) {
+            validAnswer = validYesNo.validYesNo(answer);
 
-                newGame = true;
-                wrongAnswer = false;
+        }
 
-                for (int i = 0; i < 20 ; i++) {
+        if (answer.equalsIgnoreCase("y")) {
 
-                    new HorizontalLine();
+            newGame = true;
 
-                }
+            for (int i = 0; i < 20 ; i++) {
 
-            } else wrongAnswer = !answer.equalsIgnoreCase("n");
+                new HorizontalLine();
+
+            }
 
         }
 

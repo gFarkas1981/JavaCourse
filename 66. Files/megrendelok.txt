@@ -1,0 +1,32 @@
+Név: Am erika
+E-mail: usa@gmail.com
+feliratkozás ideje: 2013-09-11
+Telefonszám: +36703889001
+Levelezési cím: 3527 Miskolc, Kalap utca 7.
+Számlázási név: amerika
+Számlázási irányítószám: 3527
+Számlázási város: Miskolc
+Számlázási utca, házszám: Kalap u. 7.
+Honnan/kitől hallottál az cuccról?: Mikulás
+
+Név: bármi áron
+E-mail: hellorozi@citromail.hu
+feliratkozás ideje: 2013-09-05
+Telefonszám: 06 30 8592342
+Levelezési cím: 7621 pécs, kilátó u. 444.
+Számlázási név: bármiáron kft.
+Számlázási irányítószám: 7621
+Számlázási város: Pécs
+Számlázási utca, házszám: Kilátó u. 444.
+Honnan/kitől hallottál az cuccról?: email
+
+Név: ZSÁKOS FRODÓ
+E-mail: joe@freemail.hu
+feliratkozás ideje: 2013-09-05
+Telefonszám: 06204687327
+Levelezési cím: 4032 Debrecen, Görgey u. 115.
+Számlázási név: Kis Róka Egyesület
+Számlázási irányítószám: 4032
+Számlázási város: Debrecen
+Számlázási utca, házszám: Görgey u. 115.
+Honnan/kitől hallottál az cuccról?: internet

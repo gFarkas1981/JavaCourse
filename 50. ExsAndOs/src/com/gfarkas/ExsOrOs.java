@@ -13,7 +13,9 @@ public class ExsOrOs {
         for (int j = 0; j < 2; j++) {
 
             if (j == 1) {
+
                 xPerO = 'O';
+
             }
 
             for (int i = 0; i < 3; i++) {

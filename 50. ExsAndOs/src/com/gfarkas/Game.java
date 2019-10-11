@@ -1,6 +1,6 @@
 package com.gfarkas;
 
-import com.gfarkas.ExsAndOs;
+import java.util.Random;
 
 class Game {
 
@@ -8,26 +8,54 @@ class Game {
 
     private Player p1 = new Player();
     private Player p2 = new Player();
+    private boolean validAnswer;
 
     void game(String[][] table, boolean isFirstGame) {
 
-        ExsOrOs exsOrOsOs = new ExsOrOs();
+        ExsOrOs exsOrOs = new ExsOrOs();
         HorizontalLine horizontalLine = new HorizontalLine();
         NextStep nextStep = new NextStep();
         DrawTable drawTable = new DrawTable();
         IsValid isValid = new IsValid();
+        ValidYesNo validYesNo = new ValidYesNo();
+        p2.setHuman(true);
+
+        while (!validAnswer) {
+
+            new HorizontalLine();
+            String answer = stringScanner.stringScanner("Do you want to play with computer? (y/n)");
+            new HorizontalLine();
+
+            validAnswer = validYesNo.validYesNo(answer);
+
+            if (answer.equalsIgnoreCase("y") && validAnswer) {
+
+                p2.setHuman(false);
+
+            }
+
+        }
 
         p1.setActual(true);
+        p1.setSymbol('X');
+        p1.setPoints(0);
 
-        if (isFirstGame) {
+        if (isFirstGame && p2.isHuman()) {
 
-            p1.setSymbol('X');
-            p1.setPoints(0);
             p1.setName(stringScanner.stringScanner("Please enter the first player's name: "));
 
             p2.setSymbol('O');
             p2.setPoints(0);
             p2.setName(stringScanner.stringScanner("Please enter the second player's name: "));
+
+        } else {
+
+            p1.setName(stringScanner.stringScanner("Please enter your name: "));
+            p1.setActual(true);
+
+            p2.setSymbol('O');
+            p2.setPoints(0);
+            p2.setName("Computer");
 
         }
 
@@ -45,7 +73,7 @@ class Game {
 
             }
 
-            if (exsOrOsOs.exsOrOs(table) == 1) {
+            if (exsOrOs.exsOrOs(table) == 1) {
 
                 horizontalLine.horizontalLine();
                 System.out.println(p1.getName() + " won the game. Congratulations!");
@@ -53,7 +81,7 @@ class Game {
                 p1.setPoints(p1.getPoints() + 2);
                 return;
 
-            } else if (exsOrOsOs.exsOrOs(table) == 2) {
+            } else if (exsOrOs.exsOrOs(table) == 2 && p2.isHuman()) {
 
                 horizontalLine.horizontalLine();
                 System.out.println(p2.getName() + " won the game. Congratulations!");
@@ -61,18 +89,41 @@ class Game {
                 p2.setPoints(p2.getPoints() + 2);
                 return;
 
+            } else if (exsOrOs.exsOrOs(table) == 2) {
+
+                horizontalLine.horizontalLine();
+                System.out.println(p2.getName() + " won the game. I am terribly sorry!");
+                horizontalLine.horizontalLine();
+                p2.setPoints(p2.getPoints() + 2);
+                return;
+
             }
 
+            int[] nextMove = {0, 1};
 
-            int[] nextMove = nextStep.nextStep(p1.isActual() ? p1.getName() : p2.getName());
+            if ((p2.isHuman() && p2.isActual()) || p1.isActual()) {
 
-            while (!isValid.isValid(table, nextMove)) {
+                nextMove = nextStep.nextStep((p1.isActual() ? p1.getName() : p2.getName()));
 
-                horizontalLine.horizontalLine();
-                System.out.println("Invalid move!");
-                horizontalLine.horizontalLine();
-                drawTable.drawTable(table);
-                nextMove = nextStep.nextStep(p1.isActual() ? p1.getName() : p2.getName());
+                while (!isValid.isValid(table, nextMove)) {
+
+                    horizontalLine.horizontalLine();
+                    System.out.println("Invalid move!");
+                    horizontalLine.horizontalLine();
+                    drawTable.drawTable(table);
+                    nextMove = nextStep.nextStep(p1.isActual() ? p1.getName() : p2.getName());
+
+                }
+
+            } else {
+
+                while (!isValid.isValid(table, nextMove)) {
+
+                    Random random = new Random();
+                    nextMove = new int[]{random.nextInt(3), random.nextInt(2) + 1};
+
+                }
+
 
             }
 

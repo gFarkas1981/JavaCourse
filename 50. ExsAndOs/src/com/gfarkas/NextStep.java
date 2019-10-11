@@ -13,8 +13,6 @@ class NextStep {
 
         while (s1.equals("") || s2.equals("")) {
 
-            StringScanner stringScanner = new StringScanner();
-
             String step = stepScanner(actualPlayer);
 
             if (step.length() < 1 || step.length() > 2) {
@@ -28,7 +26,6 @@ class NextStep {
 
                 s1 = step.substring(0, 1);
                 s2 = step.substring(1);
-
 
                 switch (s1.toLowerCase()) {
 

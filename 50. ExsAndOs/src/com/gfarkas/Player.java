@@ -6,8 +6,17 @@ public class Player {
     private int points;
     private char symbol;
     private boolean isActual;
+    private boolean isHuman;
 
     public Player() {
+    }
+
+    public Player(String name, int points, char symbol, boolean isActual, boolean isHuman) {
+        this.name = name;
+        this.points = points;
+        this.symbol = symbol;
+        this.isActual = isActual;
+        this.isHuman = isHuman;
     }
 
     public Player(String name, int points, char symbol, boolean isActual) {
@@ -15,7 +24,7 @@ public class Player {
         this.points = points;
         this.symbol = symbol;
         this.isActual = isActual;
-    }
+     }
 
     public String getName() {
         return name;
@@ -47,5 +56,13 @@ public class Player {
 
     public void setActual(boolean actual) {
         isActual = actual;
+    }
+
+    public boolean isHuman() {
+        return isHuman;
+    }
+
+    public void setHuman(boolean human) {
+        isHuman = human;
     }
 }

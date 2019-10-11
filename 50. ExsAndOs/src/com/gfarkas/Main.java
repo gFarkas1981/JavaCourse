@@ -3,7 +3,7 @@ package com.gfarkas;
 /**
  * @author Gabor Farkas <info@gfarkas.com>
  */
-public class ExsAndOs {
+public class Main {
 
     public static void main(String[] args) {
 
