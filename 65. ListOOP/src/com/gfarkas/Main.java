@@ -12,6 +12,9 @@ public class Main {
 
         list.remove(2);
 
+        list.add("szilva");
+        list.set(list.size() - 1, "barack");
+
         System.out.println(list.size());
 
         System.out.println("Elemei: ");
