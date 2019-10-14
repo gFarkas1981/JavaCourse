@@ -1,6 +1,6 @@
 package com.gfarkas;
 
-public class DrawTable {
+class DrawTable {
 
     public void drawTable(String[][] table) {
 
@@ -18,7 +18,7 @@ public class DrawTable {
 
     }
 
-    public void clearTable(String[][] table) {
+    void clearTable(String[][] table) {
 
         for (int i = 0; i < table.length; i++) {
 

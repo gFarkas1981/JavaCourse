@@ -1,8 +1,8 @@
 package com.gfarkas;
 
-public class HorizontalLine {
+class HorizontalLine {
 
-    protected void horizontalLine() {
+    void horizontalLine() {
 
         System.out.println("-------------------------------------------------------------");
 

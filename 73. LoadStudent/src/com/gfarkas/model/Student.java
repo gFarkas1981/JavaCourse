@@ -1,8 +1,9 @@
-package com.gfarkas.Model;
+package com.gfarkas.model;
 
 import java.io.Serializable;
 
-public class Student implements Serializable {
+public class Student {
+
 
     private int reachedPoint;
     private String name;

@@ -9,7 +9,6 @@ public class Main {
 
         Game game = new Game();
         StartGame startGame = new StartGame();
-        WannaPlay wannaPlay = new WannaPlay();
 
         boolean newGame;
         boolean firstGame = true;
@@ -20,7 +19,7 @@ public class Main {
             game.game(table, firstGame);
             firstGame = false;
             game.scoreDisplay();
-            newGame = wannaPlay.wannaPlay();
+            newGame = game.playAgain();
 
         } while (newGame);
 

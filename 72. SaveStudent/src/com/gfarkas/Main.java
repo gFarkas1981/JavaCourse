@@ -1,6 +1,6 @@
 package com.gfarkas;
 
-import com.gfarkas.Model.Student;
+import com.gfarkas.model.Student;
 
 import java.io.*;
 
