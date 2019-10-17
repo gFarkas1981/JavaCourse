@@ -9,18 +9,23 @@ public class Player {
     private int dollars;
     List<Card> hand = new ArrayList<>();
     private byte valueOfHand;
-    private boolean hasAce;
+    private boolean goneBust = false;
+    private boolean hasBlackJack;
+    private boolean isValuable = false;
 
     public Player() {
     }
 
-    public Player(String name, int dollars) {
+    Player(String name, int dollars, boolean goneBust, boolean hasBlackJack) {
         this.name = name;
         this.dollars = dollars;
+        this.goneBust = goneBust;
+        this.hasBlackJack = hasBlackJack;
     }
 
-    public void recalculate() {
+    private void recalculate() {
 
+        boolean hasAce = false;
         this.valueOfHand = 0;
 
         for (Card card : this.hand) {
@@ -41,14 +46,49 @@ public class Player {
 
         }
 
+        if (valueOfHand > 21) {
+
+            goneBust = true;
+
+        } else if (valueOfHand > 16) {
+
+            isValuable = true;
+
+        }
+
     }
 
-    public String getName() {
+    String getName() {
         return name;
     }
 
-    public byte getValueOfHand() {
+    byte getValueOfHand() {
+
+        recalculate();
         return valueOfHand;
     }
 
+    public int getDollars() {
+        return dollars;
+    }
+
+    public void setDollars(int dollars) {
+        this.dollars = dollars;
+    }
+
+    boolean hasGoneBust() {
+        return goneBust;
+    }
+
+    boolean isValuable() {
+        return isValuable;
+    }
+
+    boolean hasBlackJack() {
+        return hasBlackJack;
+    }
+
+    void setBlackJack(boolean hasBlackJack) {
+        this.hasBlackJack = hasBlackJack;
+    }
 }

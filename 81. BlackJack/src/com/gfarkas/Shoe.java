@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-class NewDeck {
+class Shoe {
 
     private char clubs = '♣';
     private char spades = '♠';
@@ -16,21 +16,24 @@ class NewDeck {
     private String[] name = new String[]
             {"Ace","2","3","4","5","6","7","8","9","10","Jack","Queen","King"};
 
-    NewDeck() {
+    Shoe(int decks) {
 
-        createDeck();
-        shuffleDeck();
-        //displayDeck();
+        createShoe(decks);
+        shuffleShoe();
 
     }
 
-    private void createDeck() {
+    private void createShoe(int decks) {
 
-        for (char suit : suits) {
+        for (int i = 0; i < decks ; i++) {
 
-            for (int j = 0; j < name.length; j++) {
+            for (char suit : suits) {
 
-                deck.add(new Card(suit, value[j], name[j]));
+                for (int j = 0; j < name.length; j++) {
+
+                    deck.add(new Card(suit, value[j], name[j]));
+
+                }
 
             }
 
@@ -38,23 +41,13 @@ class NewDeck {
 
     }
 
-    private void shuffleDeck() {
+    private void shuffleShoe() {
 
         Collections.shuffle(deck);
 
     }
 
-    private void displayDeck() {
-
-        for (Card card : deck) {
-
-            System.out.println(card);
-
-        }
-
-    }
-
-    public List<Card> getDeck() {
+    List<Card> getShoe() {
         return deck;
     }
 }
