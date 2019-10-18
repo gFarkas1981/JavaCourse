@@ -25,7 +25,7 @@ class Game {
         System.out.println("Both " + playerName + " and dealer have $1000.");
 
         // playing until someone loses all it's money
-        while (player.getDollars() > 1 && dealer.getDollars() > 1) {
+        //while (player.getDollars() > 1 && dealer.getDollars() > 1) {
 
             System.out.println("Taking bets!");
             player.setDollars(player.getDollars() - BET);
@@ -76,7 +76,7 @@ class Game {
 
             endOfTheGame(shoe.getShoe(), player, dealer);
 
-        }
+        //}
 
     }
 
@@ -95,22 +95,16 @@ class Game {
     public void firstRound(List<Card> shoe, Player dealer, Player player) {
 
         // In first deal a player gets a card
-        player.hand.add(shoe.get(0));
+        player.hand.add(shoe.remove(0));
 
         // and dealer gets an other
-        dealer.hand.add(shoe.get(1));
+        dealer.hand.add(shoe.remove(0));
 
         // then player gets an other
-        player.hand.add(shoe.get(2));
+        player.hand.add(shoe.remove(0));
 
         // then dealer gets an other
-        dealer.hand.add(shoe.get(3));
-
-        // removing these cards from the shoe
-        shoe.remove(0);
-        shoe.remove(0);
-        shoe.remove(0);
-        shoe.remove(0);
+        dealer.hand.add(shoe.remove(0));
 
         // recalculating the values of hands
         player.getValueOfHand();
@@ -120,8 +114,7 @@ class Game {
 
     public void notFirstRound(List<Card> shoe, Player player) {
 
-        player.hand.add(shoe.get(0));
-        shoe.remove(0);
+        player.hand.add(shoe.remove(0));
         player.getValueOfHand();
 
     }
@@ -134,8 +127,8 @@ class Game {
         // adding cards to the dealer until dealer's hand's value under 17
         while (dealer.getValueOfHand() < 17) {
 
-            dealer.hand.add(shoe.get(0));
-            shoe.remove(0);
+            dealer.hand.add(shoe.remove(0));
+
 
         }
 
