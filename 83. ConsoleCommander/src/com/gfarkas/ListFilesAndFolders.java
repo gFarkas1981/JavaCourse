@@ -50,7 +50,7 @@ public class ListFilesAndFolders {
 
                 }
 
-            } else if (files[answer - 1].isDirectory()) {
+            } else if (answer > 0 && files[answer - 1].isDirectory()) {
 
                 root = files[answer - 1];
 

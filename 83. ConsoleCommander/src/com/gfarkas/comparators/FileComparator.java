@@ -9,10 +9,11 @@ public class FileComparator implements Comparator<File>{
 
     @Override public int compare(File o1, File o2) {
 
-        boolean isFirstDirectory = o1.isDirectory();
-        boolean isSecondDirectory = o2.isDirectory();
+        if(o1.isDirectory() == o2.isDirectory() && o1.length() == o2.length()) {
 
-        if(!isFirstDirectory && !isSecondDirectory) {
+            return o1.getName().compareToIgnoreCase(o2.getName());
+
+        } else if (o1.isDirectory() == o2.isDirectory()) {
 
             if (o1.length() > o2.length()) {
 
@@ -22,17 +23,19 @@ public class FileComparator implements Comparator<File>{
 
                 return 1;
 
+            }
+
+        } else {
+
+            if (o1.isDirectory()) {
+
+                return -1;
 
             }
 
-        } else if (isFirstDirectory && !isSecondDirectory){
-            return -1;
-        } else if(isSecondDirectory && !isFirstDirectory) {
-            return 1;
-        } else {
-            return o1.compareTo(o2);
         }
 
+        return 1;
 
     }
 
