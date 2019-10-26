@@ -1,11 +1,8 @@
 package com.gfarkas;
 
-import java.util.Arrays;
-
 public class Game {
 
-    private Node[] nodes = new Node[9];
-    private Node[] cpuTable;
+    private Node[] board = new Node[9];
     private Player p1 = new Player();
     private Player p2 = new Player();
     private Player actualPlayer;
@@ -40,29 +37,31 @@ public class Game {
 
     public boolean isGameOver() {
 
-        if (hasWon(p1.getSymbol(), nodes)) {
+        if (hasWon(p1.getSymbol(), board)) {
 
             System.out.println(p1.getName() + " has won the game!");
             p1.increasePoints(2);
             displayScore();
             newGame();
             actualPlayer = p1;
+
             return true;
 
         }
 
-        if (hasWon(p2.getSymbol(), nodes)) {
+        if (hasWon(p2.getSymbol(), board)) {
 
             System.out.println(p2.getName() + " has won the game!");
             p2.increasePoints(2);
             displayScore();
             newGame();
             actualPlayer = p2;
+
             return true;
 
         }
 
-        if (fullTable(nodes)) {
+        if (isFullTable(board)) {
 
             System.out.println("All right then, we'll call it a draw!");
             p1.increasePoints(1);
@@ -70,6 +69,7 @@ public class Game {
             displayScore();
             newGame();
             actualPlayer = p1;
+
             return true;
 
         }
@@ -118,7 +118,7 @@ public class Game {
 
     }
 
-    private boolean fullTable(Node[] nodes) {
+    private boolean isFullTable(Node[] nodes) {
 
         for (int i = 0; i < 9; i++) {
 
@@ -145,23 +145,23 @@ public class Game {
 
         for (int i = 0; i < 9; i++) {
 
-            nodes[i] = new Node(i, " ");
+            board[i] = new Node(i, " ", 0);
 
         }
 
     }
 
-    private void drawTable(Node[] nodes) {
+    private void drawTable(Node[] inputNodes) {
 
         final String hLine = "  +---+---+---+";
 
         System.out.println("    1   2   3 ");
         System.out.println(hLine);
-        System.out.println("A | " + nodes[0] + " | " + nodes[1] + " | " + nodes[2] + " |");
+        System.out.println("A | " + inputNodes[0].getSymbol() + " | " + inputNodes[1].getSymbol() + " | " + inputNodes[2].getSymbol() + " |");
         System.out.println(hLine);
-        System.out.println("B | " + nodes[3] + " | " + nodes[4] + " | " + nodes[5] + " |");
+        System.out.println("B | " + inputNodes[3].getSymbol() + " | " + inputNodes[4].getSymbol() + " | " + inputNodes[5].getSymbol() + " |");
         System.out.println(hLine);
-        System.out.println("C | " + nodes[6] + " | " + nodes[7] + " | " + nodes[8] + " |");
+        System.out.println("C | " + inputNodes[6].getSymbol() + " | " + inputNodes[7].getSymbol() + " | " + inputNodes[8].getSymbol() + " |");
         System.out.println(hLine);
         System.out.println();
 
@@ -175,12 +175,11 @@ public class Game {
 
     }
 
-
     public void makeMove(int nextStep) {
 
         if (isValidMove(nextStep)) {
 
-            nodes[nextStep].setSymbol(actualPlayer.getSymbol());
+            board[nextStep].setSymbol(actualPlayer.getSymbol());
 
             if (actualPlayer == p1) {
 
@@ -192,7 +191,7 @@ public class Game {
 
             }
 
-            drawTable(nodes);
+            drawTable(board);
 
         }
 
@@ -200,91 +199,289 @@ public class Game {
 
     private boolean isValidMove(int nextStep) {
 
-        if (nextStep < 0 || nextStep > nodes.length - 1) {
+        if (nextStep < 0 || nextStep > board.length - 1) {
 
             return false;
 
         }
 
-        return nodes[nextStep].getSymbol().equals(" ");
+        return board[nextStep].getSymbol().equals(" ");
 
     }
 
+    private void evaluateBoard() {
 
-    int cpuMove() {
+        for (int i = 0; i < board.length; i++) {
 
-        String cpuSymbol = actualPlayer.getSymbol();
-        cpuTable = Arrays.copyOf(nodes, nodes.length);
+            if (board[i].getSymbol().equals(" ")) {
 
-        return minimax(cpuSymbol, cpuTable, true);
-
-    }
-
-    private int minimax(String symbol, Node[] cpuTable, boolean isTurnOfCPU) {
-
-        String human = "X";
-
-        if (symbol.equalsIgnoreCase("X")) {
-
-            human = "O";
-
-        }
-
-        String actualVirtualPlayer;
-
-        int node = 0;
-        int whoWon = -2;
-
-        while (!isValidMove(node) && !fullTable(cpuTable) && whoWon != 1 && whoWon != -1) {
-
-            node++;
-
-            if (isValidMove(node)) {
-
-                actualVirtualPlayer = human;
-
-                if (isTurnOfCPU) {
-
-                    actualVirtualPlayer = symbol;
-
-                }
-
-
-                cpuTable[node].setSymbol(actualVirtualPlayer);
-
-
-                drawTable(cpuTable);
-
-                if (hasWon(actualVirtualPlayer, cpuTable)) {
-
-                    if (actualVirtualPlayer.equalsIgnoreCase(symbol)) {
-
-                        whoWon = 1;
-                        System.out.println("Who won: " + whoWon);
-
-                    } else {
-
-                        whoWon = -1;
-                        System.out.println("Who won: " + whoWon);
-                    }
-
-                }
-
-                if (fullTable(cpuTable)) {
-
-                    whoWon = 0;
-                    System.out.println("Who won: " + whoWon);
-
-                }
-
-
-                isTurnOfCPU = !isTurnOfCPU;
+                calcValues(i);
 
             }
 
         }
 
-        return whoWon;
+    }
+
+    private void calcValues(int i) {
+
+        switch (i) {
+
+            case 0:
+                if ((board[1].getSymbol().equalsIgnoreCase(board[2].getSymbol()) && !board[1].getSymbol().equals(" ")) ||
+                        ((board[3].getSymbol().equalsIgnoreCase(board[6].getSymbol()) && !board[3].getSymbol().equals(" ")) ||
+                                (board[4].getSymbol().equalsIgnoreCase(board[8].getSymbol()) && !board[4].getSymbol().equals(" ")))) {
+
+                    board[0].setValue(100);
+
+
+                } else if (board[1].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol()) ||
+                        board[2].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol()) ||
+                        board[4].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol()) ||
+                        board[8].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol()) ||
+                        board[3].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol()) ||
+                        board[6].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol())) {
+
+                    board[0].setValue(60);
+
+                } else if (!board[4].getSymbol().equals(" ")) {
+
+                    board[0].setValue(75);
+
+                } else {
+
+                    board[0].setValue(0);
+
+                }
+                break;
+
+            case 1:
+                if ((board[0].getSymbol().equalsIgnoreCase(board[2].getSymbol()) && !board[0].getSymbol().equals(" ")) ||
+                        (board[4].getSymbol().equalsIgnoreCase(board[7].getSymbol()) && !board[4].getSymbol().equals(" "))) {
+
+                    board[1].setValue(100);
+
+
+                } else if (board[0].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol()) ||
+                        board[2].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol()) ||
+                        board[4].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol()) ||
+                        board[7].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol())) {
+
+                    board[1].setValue(50);
+
+                } else {
+
+                    board[1].setValue(0);
+
+                }
+                break;
+
+            case 2:
+                if ((board[0].getSymbol().equalsIgnoreCase(board[1].getSymbol()) && !board[0].getSymbol().equals(" ")) ||
+                        (board[4].getSymbol().equalsIgnoreCase(board[6].getSymbol()) && !board[4].getSymbol().equals(" ")) ||
+                        (board[5].getSymbol().equalsIgnoreCase(board[8].getSymbol()) && !board[5].getSymbol().equals(" "))) {
+
+                    board[2].setValue(100);
+
+
+                } else if (board[0].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol()) ||
+                        board[1].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol()) ||
+                        board[4].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol()) ||
+                        board[6].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol()) ||
+                        board[5].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol()) ||
+                        board[8].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol())) {
+
+                    board[2].setValue(60);
+
+                } else if (!board[4].getSymbol().equals(" ")) {
+
+                    board[2].setValue(75);
+
+                } else {
+
+                    board[2].setValue(0);
+
+                }
+                break;
+
+            case 3:
+                if ((board[0].getSymbol().equalsIgnoreCase(board[6].getSymbol()) && !board[0].getSymbol().equals(" ")) ||
+                        (board[4].getSymbol().equalsIgnoreCase(board[5].getSymbol()) && !board[4].getSymbol().equals(" "))) {
+
+                    board[3].setValue(100);
+
+
+                } else if (board[0].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol()) ||
+                        board[6].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol()) ||
+                        board[4].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol()) ||
+                        board[5].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol())) {
+
+                    board[3].setValue(50);
+
+                } else {
+
+                    board[3].setValue(0);
+
+                }
+                break;
+
+            case 4:
+                if ((board[0].getSymbol().equalsIgnoreCase(board[8].getSymbol()) && !board[0].getSymbol().equals(" ")) ||
+                        (board[3].getSymbol().equalsIgnoreCase(board[5].getSymbol()) && !board[3].getSymbol().equals(" ")) ||
+                        (board[6].getSymbol().equalsIgnoreCase(board[2].getSymbol()) && !board[6].getSymbol().equals(" ")) ||
+                        (board[1].getSymbol().equalsIgnoreCase(board[7].getSymbol()) && !board[1].getSymbol().equals(" "))) {
+
+                    board[4].setValue(100);
+
+
+                } else if (board[0].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol()) ||
+                        board[1].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol()) ||
+                        board[2].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol()) ||
+                        board[3].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol()) ||
+                        board[5].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol()) ||
+                        board[6].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol()) ||
+                        board[7].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol()) ||
+                        board[8].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol())) {
+
+                    board[4].setValue(70);
+
+                } else {
+
+                    board[4].setValue(60);
+
+                }
+                break;
+
+            case 5:
+                if ((board[2].getSymbol().equalsIgnoreCase(board[8].getSymbol()) && !board[2].getSymbol().equals(" ")) ||
+                        (board[3].getSymbol().equalsIgnoreCase(board[4].getSymbol()) && !board[3].getSymbol().equals(" "))) {
+
+                    board[5].setValue(100);
+
+
+                } else if (board[2].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol()) ||
+                        board[8].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol()) ||
+                        board[3].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol()) ||
+                        board[4].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol())) {
+
+                    board[5].setValue(50);
+
+                } else {
+
+                    board[5].setValue(0);
+
+                }
+                break;
+
+            case 6:
+                if (board[0].getSymbol().equalsIgnoreCase(board[3].getSymbol()) && !board[0].getSymbol().equals(" ") ||
+                        (board[4].getSymbol().equalsIgnoreCase(board[2].getSymbol()) && !board[4].getSymbol().equals(" ")) ||
+                        (board[7].getSymbol().equalsIgnoreCase(board[8].getSymbol()) && !board[1].getSymbol().equals(" "))) {
+
+                    board[6].setValue(100);
+
+
+                } else if (board[0].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol()) ||
+                        board[3].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol()) ||
+                        board[4].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol()) ||
+                        board[2].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol()) ||
+                        board[7].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol()) ||
+                        board[8].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol())) {
+
+                    board[6].setValue(60);
+
+                } else if (!board[4].getSymbol().equals(" ")) {
+
+                    board[6].setValue(75);
+
+                } else {
+
+                    board[6].setValue(0);
+
+                }
+                break;
+
+            case 7:
+                if ((board[1].getSymbol().equalsIgnoreCase(board[4].getSymbol()) && !board[1].getSymbol().equals(" ")) ||
+                        (board[6].getSymbol().equalsIgnoreCase(board[8].getSymbol()) && !board[6].getSymbol().equals(" "))) {
+
+                    board[7].setValue(100);
+
+
+                } else if (board[1].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol()) ||
+                        board[4].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol()) ||
+                        board[6].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol()) ||
+                        board[8].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol())) {
+
+                    board[7].setValue(50);
+
+                } else {
+
+                    board[7].setValue(0);
+
+                }
+                break;
+
+            case 8:
+                if ((board[6].getSymbol().equalsIgnoreCase(board[7].getSymbol()) && !board[6].getSymbol().equals(" ")) ||
+                        (board[0].getSymbol().equalsIgnoreCase(board[4].getSymbol())) && !board[0].getSymbol().equals(" ") ||
+                        (board[2].getSymbol().equalsIgnoreCase(board[5].getSymbol())) && !board[2].getSymbol().equals(" ")) {
+
+                    board[8].setValue(100);
+
+
+                } else if (board[6].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol()) ||
+                        board[7].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol()) ||
+                        board[0].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol()) ||
+                        board[4].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol()) ||
+                        board[2].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol()) ||
+                        board[5].getSymbol().equalsIgnoreCase(actualPlayer.getSymbol())) {
+
+                    board[8].setValue(60);
+
+                } else if (!board[4].getSymbol().equals(" ")) {
+
+                    board[8].setValue(75);
+
+                } else {
+
+                    board[8].setValue(0);
+
+                }
+                break;
+
+            default:
+                throw new IllegalStateException("Unexpected value: " + i);
+        }
+    }
+
+    public int cpuMove() {
+
+        evaluateBoard();
+        Node nodeWithHighestValue = board[0];
+
+        for (Node value : board) {
+
+            if (value.getSymbol().equals(" ")) {
+
+                nodeWithHighestValue = value;
+
+            }
+
+        }
+
+        for (Node node : board) {
+
+            if (node.getValue() > nodeWithHighestValue.getValue() &&
+                    node.getSymbol().equals(" ")) {
+
+                nodeWithHighestValue = node;
+
+            }
+
+        }
+
+        return nodeWithHighestValue.getNumberOfNode();
 
     }
 
