@@ -3,6 +3,7 @@ package com.gfarkas;
 import com.sun.xml.internal.ws.api.pipe.ClientPipeAssemblerContext;
 
 import java.sql.*;
+import java.util.Scanner;
 
 public class Main {
 
@@ -11,23 +12,28 @@ public class Main {
         String userName = "root";
         String password = "1234";
         String db_url = "jdbc:mysql://localhost:3306/world";
+        Scanner scanner = new Scanner(System.in);
 
         try {
 
-            Connection connection = DriverManager.getConnection(db_url, userName, password);
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM city");
+            try (Connection connection = DriverManager.getConnection(db_url, userName, password)) {
+                PreparedStatement preparedStatement = (PreparedStatement) connection.prepareStatement("SELECT * FROM city where CountryCode = ?");
+                System.out.println("Please enter a country code! ie.: 'HUN'");
+                String code = scanner.nextLine();
+                preparedStatement.setString(1, code);
+                String sql = "SELECT * FROM city where CountryCode='HUN'";
+                ResultSet resultSet = preparedStatement.executeQuery(sql);
 
-            while (resultSet.next()) {
+                while (resultSet.next()) {
 
-                String nev = resultSet.getString("Name");
-                String megye = resultSet.getString("District");
-                String nepesseg = resultSet.getString("Population");
-                System.out.println(nev + " " + megye + " " + nepesseg);
+                    String name = resultSet.getString("Name");
+                    String county = resultSet.getString("District");
+                    String population = resultSet.getString("Population");
+                    System.out.println(name + " " + county + " " + population);
+
+                }
 
             }
-
-            connection.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
