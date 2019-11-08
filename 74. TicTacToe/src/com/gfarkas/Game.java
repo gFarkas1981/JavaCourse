@@ -485,4 +485,122 @@ public class Game {
 
     }
 
+    public int findBestMove() {
+
+        // duplicate original board for test purpose
+        Node[] testBoard = new Node[board.length];
+
+        for (int i = 0; i < board.length; i++) {
+
+            testBoard[i] = new Node(board[i].getNumberOfNode(), board[i].getSymbol(), board[i].getValue());
+
+        }
+
+        // initializing best possible move with the worst value for player 2 (computer)
+        Node bestMove = new Node(-1, "X", Integer.MIN_VALUE);
+
+        // iterating through the board
+        for (Node node : testBoard) {
+
+            // if we can make this move
+            if (node.getSymbol().equals(" ")) {
+
+                // making a move
+                node.setSymbol("O");
+                // and recursively playing the game with this starting position
+                node.setValue(minimax(testBoard, 0, false));
+
+                // comparing this value and the best move's value so far
+                if (node.getValue() > bestMove.getValue()) {
+
+                    // setting the new best move
+                    bestMove = new Node
+                            (node.getNumberOfNode(), node.getSymbol(), node.getValue());
+
+                }
+
+                // undoing move
+                node.setSymbol(" ");
+
+            }
+
+        }
+
+        // returning the best possible move's position on the board
+        return bestMove.getNumberOfNode();
+
+    }
+
+    private int minimax(Node[] testBoard, int depth, boolean isMaximizingPlayer) {
+
+        int valueOfTheBoard;
+
+        // if the game is over and computer won
+        if (hasWon("O", testBoard)) {
+
+            return 10;
+
+            // if player 1 won
+        } else if (hasWon("X", testBoard)) {
+
+            return  -10;
+
+            // if it's a draw
+        } else if (isFullTable(testBoard)){
+
+            return 0;
+
+        }
+
+        if (isMaximizingPlayer) {
+
+            // recursively making the next...next move
+            int bestValue = Integer.MIN_VALUE;
+
+            for (Node node : testBoard) {
+
+                if (node.getSymbol().equals(" ")) {
+
+                    node.setSymbol("O");
+                    valueOfTheBoard = minimax(testBoard, depth + 1, false);
+                    // selecting the new best value for p2 (computer)
+                    bestValue = Math.max(bestValue, valueOfTheBoard);
+
+
+                    // undoing move
+                    node.setSymbol(" ");
+
+                }
+
+            }
+
+            return bestValue;
+
+        } else {
+
+            int bestValue = Integer.MAX_VALUE;
+
+            for (Node node : testBoard) {
+
+                if (node.getSymbol().equals(" ")) {
+
+                    node.setSymbol("X");
+                    valueOfTheBoard = minimax(testBoard, depth + 1, true);
+                    // selecting the new best value for p1 (human)
+                    bestValue = Math.min(bestValue, valueOfTheBoard);
+
+                    // undoing move
+                    node.setSymbol(" ");
+
+                }
+
+            }
+
+            return bestValue;
+
+        }
+
+    }
+
+
 }

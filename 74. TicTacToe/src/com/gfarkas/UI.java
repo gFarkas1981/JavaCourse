@@ -148,7 +148,8 @@ public class UI {
 
         } else {
 
-            return game.cpuMove();
+            return game.findBestMove();
+            //return game.cpuMove();
 
         }
 
