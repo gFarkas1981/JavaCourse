@@ -1,41 +1,43 @@
-package model;
+package com.gfarkas.model;
 
 import java.io.Serializable;
 
-public class Szemely implements Serializable {
+public class Customer implements Serializable {
 
     private int id;
-    private String nev;
+    private String name;
     private String email;
 
-    public Szemely() {
+    public Customer() {
     }
 
-    public Szemely(int id, String nev, String email) {
+    public Customer(int id, String name, String email) {
         this.id = id;
-        this.nev = nev;
+        this.name = name;
         this.email = email;
     }
 
-    public Szemely(String nev, String email) {
-        this.nev = nev;
+    public Customer(String name, String email) {
+        this.name = name;
         this.email = email;
     }
 
     public int getId() {
+
         return id;
+
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public String getNev() {
-        return nev;
+    public String getName() {
+        return name;
     }
 
-    public void setNev(String nev) {
-        this.nev = nev;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
@@ -48,6 +50,6 @@ public class Szemely implements Serializable {
 
     @Override
     public String toString() {
-        return nev + " (" + email + ")";
+        return "|\t" + name + "\t\t|\t\t" + email + "\t\t|";
     }
 }
