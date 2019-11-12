@@ -54,9 +54,9 @@ public class UI {
         topPanel.add(jpTopLeft);
 
         topPanel.add(message);
-        message.setPreferredSize(new Dimension(600, 30));
-        message.setText("Tic Tac Toe Game Against Computer Easy Level");
-        message.setFont(new Font("Arial", Font.BOLD, 20));
+        message.setPreferredSize(new Dimension(600, 33));
+        message.setText(String.format("<html>Tic Tac Toe Game vs.  <br> Computer, level:Easy</html>"));
+        message.setFont(new Font("Arial", Font.BOLD, 18));
         message.setVisible(true);
 
         JPanel jpTopRight = new JPanel();
@@ -87,7 +87,7 @@ public class UI {
         jpTopLeft3.setPreferredSize(new Dimension(100, 33));
         topPanel.add(jpTopLeft3);
 
-        jlWannaPlayAgain.setVisible(true);
+        jlWannaPlayAgain.setVisible(false);
         jlWannaPlayAgain.setFont(new Font("Arial", Font.PLAIN, 18));
         jlWannaPlayAgain.setSize(new Dimension(300, 33));
         topPanel.add(jlWannaPlayAgain);
@@ -96,7 +96,7 @@ public class UI {
         jpTopRight3.setPreferredSize(new Dimension(100, 33));
         topPanel.add(jpTopRight3);
 
-        yesButton.setVisible(true);
+        yesButton.setVisible(false);
         yesButton.setSize(new Dimension(20, 20));
         jpTopRight3.add(yesButton);
 
@@ -134,7 +134,7 @@ public class UI {
             impossibleMenuItem.setBackground(null);
             playWithFriendMenuItem.setBackground(null);
             level = 1;
-            message.setText("Tic Tac Toe Game Against Computer Easy Level");
+            message.setText(String.format("<html>Tic Tac Toe Game vs.  <br> Computer, level:Easy</html>"));
 
         });
 
@@ -146,7 +146,7 @@ public class UI {
             impossibleMenuItem.setBackground(null);
             playWithFriendMenuItem.setBackground(null);
             level = 2;
-            message.setText("Tic Tac Toe Game Against Computer Medium Level");
+            message.setText(String.format("<html>Tic Tac Toe Game vs.  <br> Computer, level:Medium</html>"));
 
         });
 
@@ -158,7 +158,7 @@ public class UI {
             impossibleMenuItem.setBackground(Color.GREEN);
             playWithFriendMenuItem.setBackground(null);
             level = 3;
-            message.setText("Tic Tac Toe Game Against Computer Impossible Level");
+            message.setText(String.format("<html>Tic Tac Toe Game vs.  <br> Computer, level:Impossible</html>"));
 
         });
 
@@ -170,7 +170,7 @@ public class UI {
             impossibleMenuItem.setBackground(null);
             playWithFriendMenuItem.setBackground(Color.GREEN);
             level = 4;
-            message.setText("Tic Tac Toe Game Against A Friend");
+            message.setText(String.format("<html>Tic Tac Toe Game vs.  <br> A Friend</html>"));
 
         });
 
