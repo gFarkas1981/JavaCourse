@@ -8,3 +8,6 @@
 *.class
 **/.idea/
 *.kotlin_module
+/JavaApplication10netbeans/nbproject/private/
+/NetBeansTicTacToe/nbproject/private/
+/NetBeansTicTacToe/TicTacToe/nbproject/private/

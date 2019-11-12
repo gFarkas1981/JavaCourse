@@ -29,7 +29,8 @@ public class Main {
 
             Customer customer = new Customer("Bela", "bela@gmail.com");
             model.addCustomer(customer);
-            int id = model.getCustomerId(customer);
+//            int id = model.getCustomerId(customer);
+            int id = customer.getId();
             Customer nemBela = new Customer(id,"Dezso", "dezsi@gmail.com");
             model.updateCustomer(nemBela);
             customersBeforeDelete = model.getAllCustomer();

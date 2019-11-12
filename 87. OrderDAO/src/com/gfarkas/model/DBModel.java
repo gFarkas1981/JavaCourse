@@ -1,5 +1,7 @@
 package com.gfarkas.model;
 
+import com.mysql.jdbc.Statement;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,6 +24,7 @@ public class DBModel implements IModel {
     private PreparedStatement getOrderIdPstmt;
     private PreparedStatement getCustomerByIdPstmt;
     private PreparedStatement getOrderByIdPstmt;
+    String generatedColumns[] = { "id" };
 
     public DBModel(Connection connection) throws SQLException {
 
@@ -42,7 +45,7 @@ public class DBModel implements IModel {
                 connection.prepareStatement("DELETE FROM rendeles WHERE id = ?");
         addCustomerPstmt =
                 connection.prepareStatement
-                        ("INSERT INTO szemely (nev, email) VALUES (?, ?)");
+                        ("INSERT INTO szemely (nev, email) VALUES (?, ?)", generatedColumns);
         addOrderPstmt = connection.prepareStatement
                         ("INSERT INTO rendeles (rendeloid, osszeg, darabszam, teljesitve) VALUES (?, ?, ?, ?)");
         getCustomerIdPstmt = connection.prepareStatement
@@ -201,8 +204,15 @@ public class DBModel implements IModel {
         addCustomerPstmt.setString(1, customer.getName());
         addCustomerPstmt.setString(2, customer.getEmail());
 
-        return addCustomerPstmt.executeUpdate();
+        int i = addCustomerPstmt.executeUpdate();
 
+        ResultSet generatedKeys = addCustomerPstmt.getGeneratedKeys();
+
+        if (generatedKeys.next()){
+            customer.setId(generatedKeys.getInt(1));
+            System.out.println(customer.getId());
+        }
+        return i;
     }
 
     @Override
