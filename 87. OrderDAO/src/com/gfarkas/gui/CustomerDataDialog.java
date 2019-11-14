@@ -6,6 +6,7 @@ package com.gfarkas.gui;
 
 import java.awt.event.*;
 import com.gfarkas.model.Customer;
+import com.sun.glass.ui.InvokeLaterDispatcher;
 
 import java.awt.*;
 import javax.swing.*;
@@ -19,11 +20,11 @@ public class CustomerDataDialog extends JDialog {
     private Customer customer;
     private boolean save;
 
-    public CustomerDataDialog(java.awt.Frame parent, Customer customer) {
-        super(parent, true);
+    public CustomerDataDialog(java.awt.Dialog dialog, Customer customer) {
+        super(dialog, true);
         initComponents();
 
-        setLocationRelativeTo(parent);
+        setLocationRelativeTo(dialog);
 
         this.customer = customer;
         save = false;
@@ -61,6 +62,7 @@ public class CustomerDataDialog extends JDialog {
         customer.setEmail(emailJTextField.getText());
         save = true;
         setVisible(false);
+
 
     }
 

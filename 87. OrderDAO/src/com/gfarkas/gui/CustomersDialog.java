@@ -48,7 +48,7 @@ public class CustomersDialog extends JDialog {
 
     private void newButtonActionPerformed(ActionEvent e) {
 
-        CustomerDataDialog customerDataDialog = new CustomerDataDialog(parent, null);
+        CustomerDataDialog customerDataDialog = new CustomerDataDialog(this, null);
         customerDataDialog.setVisible(true);
         Customer customer = customerDataDialog.getCustomer();
 
@@ -58,7 +58,7 @@ public class CustomersDialog extends JDialog {
 
                 model.addCustomer(customer);
                 reloadCustomer();
-                customerDataDialog.setVisible(false);
+               // customerDataDialog.setVisible(false);
 
             } catch (SQLException ex) {
 
@@ -134,9 +134,9 @@ public class CustomersDialog extends JDialog {
 
         if (selected != null) {
 
-            CustomerDataDialog customerDataDialog = new CustomerDataDialog(parent, selected);
-            customerDataDialog.setVisible(true);
+            CustomerDataDialog customerDataDialog = new CustomerDataDialog(this, selected);
             Customer customer = customerDataDialog.getCustomer();
+            customerDataDialog.setVisible(true);
 
 
             try {

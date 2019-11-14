@@ -12,6 +12,7 @@ import com.gfarkas.model.Order;
 import com.sun.org.apache.xpath.internal.operations.Or;
 
 import java.awt.*;
+import java.security.AllPermission;
 import java.sql.SQLException;
 import java.util.List;
 import javax.swing.*;
@@ -25,6 +26,7 @@ public class OrdersDialog extends JDialog {
 
     private IModel model;
     private Frame parent;
+    private List<Customer> customers = null;
 
     public OrdersDialog(java.awt.Frame parent, IModel model) {
         super(parent, true);
@@ -42,11 +44,13 @@ public class OrdersDialog extends JDialog {
 
         }
 
-        reloadOrders();
+       fillUpComboBox();
+        customersComboBox.setSelectedItem(-1);
+
 
     }
 
-    private void reloadOrders() {
+    private void showSelected() {
 
         DefaultTableModel dtm = (DefaultTableModel) ordersJTable.getModel();
         // empty table
@@ -56,10 +60,58 @@ public class OrdersDialog extends JDialog {
 
         }
 
+        Customer customer = ((Customer) customersComboBox.getSelectedItem());
 
         try {
 
-            List<Order> orders = model.getAllOrder();
+            List<Order> orders = model.getAllOrder(customer);
+            reloadOrders(orders);
+
+        } catch (SQLException e) {
+
+            JOptionPane.showMessageDialog(rootPane, e.toString(), "Database error", JOptionPane.ERROR_MESSAGE);
+
+        }
+
+    }
+
+    private void fillUpComboBox() {
+
+
+
+        try {
+
+            customers = model.getAllCustomer();
+
+        } catch (SQLException e) {
+
+            JOptionPane.showMessageDialog(rootPane, e.toString(), "Database error", JOptionPane.ERROR_MESSAGE);
+
+        }
+        customersComboBox.setModel(new DefaultComboBoxModel(customers.toArray()));
+
+    }
+
+    private void reloadOrders(List<Order> orders) {
+
+        DefaultTableModel dtm = (DefaultTableModel) ordersJTable.getModel();
+        // empty table
+        while(dtm.getRowCount() > 0) {
+
+            dtm.removeRow(0);
+
+        }
+
+        customersComboBox.setSelectedItem(-1);
+
+
+        try {
+
+            if (orders == null) {
+
+                orders = model.getAllOrder();
+
+            }
 
             for (Order order : orders) {
 
@@ -82,7 +134,12 @@ public class OrdersDialog extends JDialog {
 
             ordersJTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
             resizeColumnWidth(ordersJTable);
-            ordersJTable.setRowSelectionInterval(0,0);
+
+            if (!orders.isEmpty()) {
+
+                ordersJTable.setRowSelectionInterval(0, 0);
+
+            }
 
         } catch (SQLException e) {
 
@@ -109,7 +166,7 @@ public class OrdersDialog extends JDialog {
 
     private void newOrderJButtonActionPerformed(ActionEvent e) {
 
-        OrderDataDialog orderDataDialog = new OrderDataDialog(parent, model, null);
+        OrderDataDialog orderDataDialog = new OrderDataDialog(parent, model, null, customers);
         orderDataDialog.setVisible(true);
         Order order = orderDataDialog.getOrder();
 
@@ -118,7 +175,7 @@ public class OrdersDialog extends JDialog {
             try {
 
                 model.addOrder(order);
-                reloadOrders();
+                reloadOrders(null);
                 orderDataDialog.setVisible(false);
 
             } catch (SQLException ex) {
@@ -155,7 +212,7 @@ public class OrdersDialog extends JDialog {
                 isComplete);
 
 
-        OrderDataDialog orderDataDialog = new OrderDataDialog(parent, model, selectedOrder);
+        OrderDataDialog orderDataDialog = new OrderDataDialog(parent, model, selectedOrder, customers);
         orderDataDialog.setVisible(true);
         Order order = orderDataDialog.getOrder();
 
@@ -164,7 +221,7 @@ public class OrdersDialog extends JDialog {
             try {
 
                 model.updateOrder(order);
-                reloadOrders();
+                reloadOrders(null);
                 orderDataDialog.setVisible(false);
 
             } catch (SQLException ex) {
@@ -179,41 +236,51 @@ public class OrdersDialog extends JDialog {
 
     private void deleteOrderJButtonActionPerformed(ActionEvent e) {
 
-        try {
+        if (ordersJTable.getSelectedRow() != -1) {
 
-            String[] options = new String[2];
-            options[0] = "Agree";
-            options[1] = "Disagree";
+            try {
 
-            if (JOptionPane.showOptionDialog(parent,
-                    "Do you really want to delete this order???",
-                    "Delete confirmation",
-                    JOptionPane.DEFAULT_OPTION,
-                    JOptionPane.INFORMATION_MESSAGE,
-                    null, options,
-                    0) == 0) {
+                String[] options = new String[2];
+                options[0] = "Agree";
+                options[1] = "Disagree";
+
+                if (JOptionPane.showOptionDialog(parent,
+                        "Do you really want to delete this order???",
+                        "Delete confirmation",
+                        JOptionPane.DEFAULT_OPTION,
+                        JOptionPane.INFORMATION_MESSAGE,
+                        null, options,
+                        0) == 0) {
 
 
-                int idOfselectedCustomer = model.getCustomerIdByNameAndEmail(
-                        ordersJTable.getValueAt(ordersJTable.getSelectedRow(), 0).toString(),
-                        ordersJTable.getValueAt(ordersJTable.getSelectedRow(), 1).toString());
+                    int idOfselectedCustomer = model.getCustomerIdByNameAndEmail(
+                            ordersJTable.getValueAt(ordersJTable.getSelectedRow(), 0).toString(),
+                            ordersJTable.getValueAt(ordersJTable.getSelectedRow(), 1).toString());
 
-                boolean isComplete = ordersJTable.getValueAt(ordersJTable.getSelectedRow(), 4).toString()
-                        .equalsIgnoreCase("complete");
+                    boolean isComplete = ordersJTable.getValueAt(ordersJTable.getSelectedRow(), 4).toString()
+                            .equalsIgnoreCase("complete");
 
-                Order selectedOrder = new Order(idOfselectedCustomer,
-                        Integer.valueOf(ordersJTable.getValueAt(ordersJTable.getSelectedRow(), 3).toString()),
-                        Integer.valueOf(ordersJTable.getValueAt(ordersJTable.getSelectedRow(), 2).toString()),
-                        isComplete);
+                    Order selectedOrder = new Order(idOfselectedCustomer,
+                            Integer.valueOf(ordersJTable.getValueAt(ordersJTable.getSelectedRow(), 3).toString()),
+                            Integer.valueOf(ordersJTable.getValueAt(ordersJTable.getSelectedRow(), 2).toString()),
+                            isComplete);
 
-                model.deleteOrder(selectedOrder);
-                reloadOrders();
+                    model.deleteOrder(selectedOrder);
+                    ordersJTable.removeRowSelectionInterval(
+                            ordersJTable.getSelectedRow(), ordersJTable.getSelectedRow());
+                    ordersJTable.repaint();
+
+                }
+
+            } catch (SQLException ex) {
+
+                JOptionPane.showMessageDialog(rootPane, e.toString(), "Database error", JOptionPane.ERROR_MESSAGE);
 
             }
 
-        } catch (SQLException ex) {
+        } else {
 
-            JOptionPane.showMessageDialog(rootPane, e.toString(), "Database error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(rootPane, "Please select a row to delete!", "There's no row selected", JOptionPane.ERROR_MESSAGE);
 
         }
 
@@ -226,6 +293,22 @@ public class OrdersDialog extends JDialog {
 
     }
 
+    private void saveOrderJButtonActionPerformed(ActionEvent e) {
+        // TODO add your code here
+    }
+
+    private void allOrderButtonActionPerformed(ActionEvent e) {
+
+        reloadOrders(null);
+
+    }
+
+    private void customersComboBoxActionPerformed(ActionEvent e) {
+
+        showSelected();
+
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - unknown
@@ -235,6 +318,8 @@ public class OrdersDialog extends JDialog {
         editOrderJButton = new JButton();
         deleteOrderJButton = new JButton();
         okOrderJButton = new JButton();
+        customersComboBox = new JComboBox();
+        allOrderButton = new JButton();
 
         //======== this ========
         Container contentPane = getContentPane();
@@ -258,7 +343,14 @@ public class OrdersDialog extends JDialog {
 
         //---- okOrderJButton ----
         okOrderJButton.setText("OK");
-        okOrderJButton.addActionListener(e -> okOrderJButtonActionPerformed(e));
+        okOrderJButton.addActionListener(e -> saveOrderJButtonActionPerformed(e));
+
+        //---- customersComboBox ----
+        customersComboBox.addActionListener(e -> customersComboBoxActionPerformed(e));
+
+        //---- allOrderButton ----
+        allOrderButton.setText("List all order");
+        allOrderButton.addActionListener(e -> allOrderButtonActionPerformed(e));
 
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
         contentPane.setLayout(contentPaneLayout);
@@ -266,36 +358,41 @@ public class OrdersDialog extends JDialog {
             contentPaneLayout.createParallelGroup()
                 .addGroup(contentPaneLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(ordersJScrollPane, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addGroup(contentPaneLayout.createParallelGroup()
+                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                         .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addComponent(ordersJScrollPane, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED))
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addComponent(customersComboBox, GroupLayout.PREFERRED_SIZE, 268, GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(newOrderJButton)
-                            .addContainerGap(19, Short.MAX_VALUE))
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(contentPaneLayout.createParallelGroup()
-                                .addComponent(deleteOrderJButton)
-                                .addComponent(editOrderJButton)
-                                .addComponent(okOrderJButton))
-                            .addContainerGap(19, Short.MAX_VALUE))))
+                            .addComponent(allOrderButton)
+                            .addGap(68, 68, 68)))
+                    .addGroup(contentPaneLayout.createParallelGroup()
+                        .addComponent(newOrderJButton)
+                        .addComponent(deleteOrderJButton)
+                        .addComponent(editOrderJButton)
+                        .addComponent(okOrderJButton))
+                    .addContainerGap(16, Short.MAX_VALUE))
         );
         contentPaneLayout.linkSize(SwingConstants.HORIZONTAL, new Component[] {deleteOrderJButton, editOrderJButton, newOrderJButton, okOrderJButton});
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
                 .addGroup(contentPaneLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(customersComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(newOrderJButton)
+                        .addComponent(allOrderButton))
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(contentPaneLayout.createParallelGroup()
                         .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addComponent(newOrderJButton)
-                            .addGap(18, 18, 18)
                             .addComponent(editOrderJButton)
                             .addGap(18, 18, 18)
                             .addComponent(deleteOrderJButton)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGap(327, 327, 327)
                             .addComponent(okOrderJButton))
-                        .addComponent(ordersJScrollPane, GroupLayout.PREFERRED_SIZE, 483, GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(19, Short.MAX_VALUE))
+                        .addComponent(ordersJScrollPane, GroupLayout.PREFERRED_SIZE, 453, GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(13, Short.MAX_VALUE))
         );
         pack();
         setLocationRelativeTo(getOwner());
@@ -310,5 +407,7 @@ public class OrdersDialog extends JDialog {
     private JButton editOrderJButton;
     private JButton deleteOrderJButton;
     private JButton okOrderJButton;
+    private JComboBox customersComboBox;
+    private JButton allOrderButton;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }

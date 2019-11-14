@@ -23,4 +23,5 @@ public interface IModel {
     void close() throws SQLException;
 
 
+    public List<Order> getAllOrder(Customer customer) throws SQLException;
 }

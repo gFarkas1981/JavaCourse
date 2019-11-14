@@ -24,6 +24,7 @@ public class DBModel implements IModel {
     private PreparedStatement getCustomerByIdPstmt;
     private PreparedStatement getOrderByIdPstmt;
     private PreparedStatement getCustomerIdByNameAndEmailPstmt;
+    private PreparedStatement getAllOrdersWhereCustomerPstmt;
     String generatedColumns[] = { "id" };
 
     public DBModel(Connection connection) throws SQLException {
@@ -36,6 +37,8 @@ public class DBModel implements IModel {
                 connection.prepareStatement("SELECT * FROM szemely");
         getAllOrderPstmt =
                 connection.prepareStatement("SELECT * FROM rendeles");
+        getAllOrdersWhereCustomerPstmt =
+                connection.prepareStatement("SELECT * FROM rendeles WHERE rendeloid = ?");
         updateCustomerPstmt =
                 connection.prepareStatement
                         ("UPDATE szemely SET nev = ?, email = ? WHERE id = ?");
@@ -87,6 +90,22 @@ public class DBModel implements IModel {
     }
 
     @Override
+    public List<Order> getAllOrder(Customer customer) throws SQLException {
+        getAllOrdersWhereCustomerPstmt.setInt(1, customer.getId());
+
+        ResultSet rs = getAllOrdersWhereCustomerPstmt.executeQuery();
+        List<Order> orders = new ArrayList<>();
+
+        while (rs.next()) {
+
+            Order order = new Order(rs.getInt("id"), rs.getInt("rendeloid"), rs.getInt("osszeg"), rs.getInt("darabszam"), rs.getBoolean("teljesitve"));
+            orders.add(order);
+        }
+        rs.close();
+        return orders;
+    }
+
+    @Override
     public int updateOrder(Order order) throws SQLException {
 
         updateOrderPstmt.setInt(1, order.getAmount());
@@ -126,10 +145,7 @@ public class DBModel implements IModel {
         getOrderIdPstmt.setInt(2, order.getAmount());
         getOrderIdPstmt.setInt(3, order.getPieces());
         getOrderIdPstmt.setBoolean(4, order.isComplete());
-        System.out.println(order.getCustomerId());
-        System.out.println(order.getAmount());
-        System.out.println(order.getPieces());
-        System.out.println(order.isComplete());
+
         ResultSet resultSet = getOrderIdPstmt.executeQuery();
 
         resultSet.first();
@@ -212,8 +228,9 @@ public class DBModel implements IModel {
         ResultSet generatedKeys = addCustomerPstmt.getGeneratedKeys();
 
         if (generatedKeys.next()){
+
             customer.setId(generatedKeys.getInt(1));
-            System.out.println(customer.getId());
+
         }
         return i;
     }

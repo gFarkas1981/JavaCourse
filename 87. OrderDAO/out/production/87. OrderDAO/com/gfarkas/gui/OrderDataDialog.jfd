@@ -4,8 +4,8 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JDialog", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq t {par t {seq l {space :p:16:p, par l {seq {par l {comp label1::l:p:47:p, comp label4:::p::p, comp label3:::p::p, comp label2:::p::p}, space :p:23:p, par l {comp orderDataDialogNameJTextField::::294:x, comp orderDataDialogEmailJtextField::::294:x, seq {par t:::p {comp orderDataDialogPiecesTextField::l:::x, comp orderDataDialogAmountTextField::l:::x}, space :::p, comp label5:::p::p, space :0:202:x}}}, seq {comp orderDataDialogIsCompleteCheckBox:::p:74:p, space :0:290:x}}}, seq t {space ::214:x, comp orderDataSaveJButton:::p::p, space s:::p, comp orderDataCancelJButton:::p::p}}, space :p:18:p}}"
-			"$verticalGroup": "par l {seq l {space :p:17:p, par b {comp label1::b:p::p, comp orderDataDialogNameJTextField::b:p::p}, space u:::p, par b {comp label2::b:p::p, comp orderDataDialogEmailJtextField::b:p::p}, space s:::p, par b {comp label3::b:p::p, comp orderDataDialogPiecesTextField::b:p::p}, space s:::p, par b {comp label4::b:p::p, comp orderDataDialogAmountTextField::b:p::p, comp label5::b:p::p}, space ::26:x, comp orderDataDialogIsCompleteCheckBox:::p::p, space :p:22:p, par b {comp orderDataCancelJButton::b:p::p, comp orderDataSaveJButton::b:p::p}, space :p:17:p}}"
+			"$horizontalGroup": "par l {seq t {par t {seq t {space ::206:x, comp orderDataSaveJButton:::p::p, space s:::p, comp orderDataCancelJButton:::p::p}, seq l {space :p:16:p, par l {seq {comp orderDataDialogIsCompleteCheckBox:::p:106:p, space :0:258:x}, seq {par l {comp label1::l:p:47:p, comp label4:::p::p, comp label3:::p::p, comp label2:::p::p}, space :p:23:p, par l {comp orderDataDialogEmailJtextField::::294:x, seq {par t:::p {comp orderDataDialogPiecesTextField::l:::x, comp orderDataDialogAmountTextField::l:::x}, space :::p, comp label5:::p::p, space :0:202:x}, comp customersComboBox::l::294:x}}}}}, space :p:18:p}}"
+			"$verticalGroup": "par l {seq l {space :p:22:p, par b {comp label1::b:p::p, comp customersComboBox::b:p::p}, space u:::p, par b {comp label2::b:p::p, comp orderDataDialogEmailJtextField::b:p::p}, space s:::p, par b {comp label3::b:p::p, comp orderDataDialogPiecesTextField::b:p::p}, space s:::p, par b {comp label4::b:p::p, comp orderDataDialogAmountTextField::b:p::p, comp label5::b:p::p}, space :::x, comp orderDataDialogIsCompleteCheckBox:::p::p, space :p:22:p, par b {comp orderDataCancelJButton::b:p::p, comp orderDataSaveJButton::b:p::p}, space :p:17:p}}"
 		} ) {
 			name: "this"
 			add( new FormComponent( "javax.swing.JLabel" ) {
@@ -33,9 +33,6 @@ new FormModel {
 				"text": "Cancel"
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
-				name: "orderDataDialogNameJTextField"
-			} )
-			add( new FormComponent( "javax.swing.JTextField" ) {
 				name: "orderDataDialogEmailJtextField"
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
@@ -47,10 +44,14 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JCheckBox" ) {
 				name: "orderDataDialogIsCompleteCheckBox"
 				"text": "Complete"
+				"horizontalTextPosition": 2
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label5"
 				"text": "USD"
+			} )
+			add( new FormComponent( "javax.swing.JComboBox" ) {
+				name: "customersComboBox"
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
