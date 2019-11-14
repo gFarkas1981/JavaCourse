@@ -1,6 +1,5 @@
 package com.gfarkas.model;
 
-import com.mysql.jdbc.Statement;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,11 +23,15 @@ public class DBModel implements IModel {
     private PreparedStatement getOrderIdPstmt;
     private PreparedStatement getCustomerByIdPstmt;
     private PreparedStatement getOrderByIdPstmt;
+    private PreparedStatement getCustomerIdByNameAndEmailPstmt;
     String generatedColumns[] = { "id" };
 
     public DBModel(Connection connection) throws SQLException {
 
         this.connection = connection;
+
+        getCustomerIdByNameAndEmailPstmt = connection.prepareStatement
+                ("SELECT id FROM szemely WHERE nev = ? AND email = ?");
         getAllCustomerPstmt =
                 connection.prepareStatement("SELECT * FROM szemely");
         getAllOrderPstmt =
@@ -107,7 +110,7 @@ public class DBModel implements IModel {
     @Override
     public int addOrder(Order order) throws SQLException {
 
-        addOrderPstmt.setInt(1, order.getOrderId());
+        addOrderPstmt.setInt(1, order.getCustomerId());
         addOrderPstmt.setInt(2, order.getAmount());
         addOrderPstmt.setInt(3, order.getPieces());
         addOrderPstmt.setBoolean(4, order.isComplete());
@@ -119,11 +122,11 @@ public class DBModel implements IModel {
     @Override
     public int getIdOfOrder(Order order) throws SQLException {
 
-        getOrderIdPstmt.setInt(1, order.getOrderId());
+        getOrderIdPstmt.setInt(1, order.getCustomerId());
         getOrderIdPstmt.setInt(2, order.getAmount());
         getOrderIdPstmt.setInt(3, order.getPieces());
         getOrderIdPstmt.setBoolean(4, order.isComplete());
-        System.out.println(order.getOrderId());
+        System.out.println(order.getCustomerId());
         System.out.println(order.getAmount());
         System.out.println(order.getPieces());
         System.out.println(order.isComplete());
@@ -244,6 +247,22 @@ public class DBModel implements IModel {
         resultSet.close();
 
         return customer;
+
+    }
+
+    @Override
+    public int getCustomerIdByNameAndEmail(String name, String email) throws SQLException{
+
+        getCustomerIdByNameAndEmailPstmt.setString(1, name);
+        getCustomerIdByNameAndEmailPstmt.setString(2, email);
+
+        ResultSet resultSet = getCustomerIdByNameAndEmailPstmt.executeQuery();
+
+        resultSet.first();
+        int id = resultSet.getInt(1);
+        resultSet.close();
+
+        return id;
 
     }
 

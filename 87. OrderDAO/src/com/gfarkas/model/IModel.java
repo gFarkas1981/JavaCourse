@@ -18,7 +18,9 @@ public interface IModel {
     int addCustomer(Customer customer) throws SQLException;
     int getCustomerId(Customer customer) throws SQLException;
     Customer getCustomerById(int id) throws  SQLException;
+    int getCustomerIdByNameAndEmail(String name, String email) throws SQLException;
 
     void close() throws SQLException;
+
 
 }

@@ -28,6 +28,7 @@ public class Customer implements Serializable {
 
     }
 
+
     public void setId(int id) {
         this.id = id;
     }

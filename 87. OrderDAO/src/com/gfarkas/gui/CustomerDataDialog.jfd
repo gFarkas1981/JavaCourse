@@ -1,0 +1,41 @@
+JFDML JFormDesigner: "7.0.0.6.255" Java: "1.8.0_202-release" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JDialog", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq {space :::p, par l {comp nameJLabel::l:p::p, comp emailJLabel::l:p::p}, space :p:8:p, par t:::p {comp emailJTextField::::283:x, seq {space :0:129:x, comp saveJButton:::p::p, space :::p, comp cancelJButton:::p::p}, comp nameJTextField::::283:x}, space :::x}}"
+			"$verticalGroup": "par l {seq l {space :::p, par l {seq {comp nameJLabel:::p::p, space u:::p, comp emailJLabel:::p::p}, seq {comp nameJTextField:::p::p, space :::p, comp emailJTextField:::p::p}}, space s:::p, par b {comp cancelJButton::b:p::p, comp saveJButton::b:p::p}, space :::x}}"
+		} ) {
+			name: "this"
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "nameJLabel"
+				"text": "Name:"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "emailJLabel"
+				"text": "Email:"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "nameJTextField"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "emailJTextField"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "cancelJButton"
+				"text": "Cancel"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "cancelJButtonActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "saveJButton"
+				"text": "Save"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "saveJButtonActionPerformed", true ) )
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "saveJButtonActionPerformed", true ) )
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 340, 140 )
+		} )
+	}
+}

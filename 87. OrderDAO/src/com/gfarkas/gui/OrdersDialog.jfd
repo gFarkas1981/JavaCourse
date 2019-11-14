@@ -1,0 +1,42 @@
+JFDML JFormDesigner: "7.0.0.6.255" Java: "1.8.0_202-release" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JDialog", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq l {space :::p, comp ordersJScrollPane:::p::p, par l {seq {space :::x, comp newOrderJButton:1::p::p, space ::19:x}, seq l {space :::p, par l {comp deleteOrderJButton:1::p::p, comp editOrderJButton:1::p::p, comp okOrderJButton:1:l:p::p}, space ::19:x}}}}"
+			"$verticalGroup": "par l {seq {space :::p, par l:::p {seq {comp newOrderJButton:::p::p, space s:::p, comp editOrderJButton:::p::p, space s:::p, comp deleteOrderJButton:::p::p, space :::x, comp okOrderJButton:::p::p}, comp ordersJScrollPane:::p:483:p}, space ::19:x}}"
+		} ) {
+			name: "this"
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "ordersJScrollPane"
+				add( new FormComponent( "javax.swing.JTable" ) {
+					name: "ordersJTable"
+				} )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "newOrderJButton"
+				"text": "New"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "newOrderJButtonActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "editOrderJButton"
+				"text": "Edit"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "editOrderJButtonActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "deleteOrderJButton"
+				"text": "Delete"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "deleteOrderJButtonActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "okOrderJButton"
+				"text": "OK"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "saveOrderJButtonActionPerformed", true ) )
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 560, 540 )
+		} )
+	}
+}

@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Order implements Serializable {
 
     private int id;
-    private int orderId;
+    private int customerId;
     private int amount;
     private int pieces;
     private boolean complete;
@@ -13,16 +13,16 @@ public class Order implements Serializable {
     public Order() {
     }
 
-    public Order(int id, int orderId, int amount, int pieces, boolean complete) {
+    public Order(int id, int customerId, int amount, int pieces, boolean complete) {
         this.id = id;
-        this.orderId = orderId;
+        this.customerId = customerId;
         this.amount = amount;
         this.pieces = pieces;
         this.complete = complete;
     }
 
-    public Order(int orderId, int amount, int pieces, boolean complete) {
-        this.orderId = orderId;
+    public Order(int customerId, int amount, int pieces, boolean complete) {
+        this.customerId = customerId;
         this.amount = amount;
         this.pieces = pieces;
         this.complete = complete;
@@ -36,12 +36,12 @@ public class Order implements Serializable {
         this.id = id;
     }
 
-    public int getOrderId() {
-        return orderId;
+    public int getCustomerId() {
+        return customerId;
     }
 
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 
     public int getAmount() {
@@ -71,7 +71,7 @@ public class Order implements Serializable {
     @Override
     public String toString() {
         return "|\t"+ id + "\t| " +
-                + orderId + "\t| " +
+                +customerId + "\t| " +
                 + amount + "\t| " +
                 + pieces + "\t| " +
                 complete + "\t| ";
