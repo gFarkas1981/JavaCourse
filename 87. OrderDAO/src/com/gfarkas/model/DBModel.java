@@ -6,7 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DBModel implements IModel {
 
@@ -72,13 +74,13 @@ public class DBModel implements IModel {
         while (resultSet.next()) {
 
             int id = resultSet.getInt("id");
-            int orderId = resultSet.getInt("rendeloid");
+            Customer customer = getCustomer(resultSet.getInt("rendeloid"));
             int amount = resultSet.getInt("osszeg");
             int pieces = resultSet.getInt("darabszam");
             boolean complete = resultSet.getBoolean("teljesitve");
 
 
-            Order order = new Order(id, orderId, amount, pieces, complete);
+            Order order = new Order(id, customer, amount, pieces, complete);
             orders.add(order);
 
         }
@@ -91,18 +93,49 @@ public class DBModel implements IModel {
 
     @Override
     public List<Order> getAllOrder(Customer customer) throws SQLException {
-        getAllOrdersWhereCustomerPstmt.setInt(1, customer.getId());
 
-        ResultSet rs = getAllOrdersWhereCustomerPstmt.executeQuery();
-        List<Order> orders = new ArrayList<>();
+        List<Order> orders = null;
 
-        while (rs.next()) {
+        if (customer != null) {
 
-            Order order = new Order(rs.getInt("id"), rs.getInt("rendeloid"), rs.getInt("osszeg"), rs.getInt("darabszam"), rs.getBoolean("teljesitve"));
-            orders.add(order);
+            getAllOrdersWhereCustomerPstmt.setInt(1, customer.getId());
+
+            ResultSet resultSet = getAllOrdersWhereCustomerPstmt.executeQuery();
+            orders = new ArrayList<>();
+
+            while (resultSet.next()) {
+
+                Customer customer1 = getCustomer(resultSet.getInt("rendeloid"));
+
+                Order order = new Order(
+                        resultSet.getInt("id"),
+                        customer,
+                        resultSet.getInt("osszeg"),
+                        resultSet.getInt("darabszam"),
+                        resultSet.getBoolean("teljesitve"));
+                orders.add(order);
+            }
+            resultSet.close();
+
         }
-        rs.close();
         return orders;
+    }
+
+    @Override
+    public Map<Integer, Customer> getCustomerMap() throws SQLException {
+
+        Map<Integer, Customer> customerMap = new HashMap<>();
+
+        List<Customer> customers = getAllCustomer();
+
+        for (Customer customer : customers) {
+
+            customerMap.put(customer.getId(), customer);
+
+        }
+
+        return customerMap;
+
     }
 
     @Override
@@ -251,7 +284,7 @@ public class DBModel implements IModel {
     }
 
     @Override
-    public Customer getCustomerById(int id) throws SQLException {
+    public Customer getCustomer(int id) throws SQLException {
 
         getCustomerByIdPstmt.setInt(1, id);
 
@@ -268,7 +301,7 @@ public class DBModel implements IModel {
     }
 
     @Override
-    public int getCustomerIdByNameAndEmail(String name, String email) throws SQLException{
+    public int getCustomerId(String name, String email) throws SQLException{
 
         getCustomerIdByNameAndEmailPstmt.setString(1, name);
         getCustomerIdByNameAndEmailPstmt.setString(2, email);

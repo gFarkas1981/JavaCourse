@@ -13,6 +13,8 @@ import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 import java.util.List;
 
+import static com.gfarkas.gui.Mainwindow.dataBaseError;
+
 /**
  * @author unknown
  */
@@ -36,6 +38,7 @@ public class CustomersDialog extends JDialog {
         this.model = model;
         this.parent = parent;
 
+
         reloadCustomer();
 
     }
@@ -49,8 +52,8 @@ public class CustomersDialog extends JDialog {
     private void newButtonActionPerformed(ActionEvent e) {
 
         CustomerDataDialog customerDataDialog = new CustomerDataDialog(this, null);
-        customerDataDialog.setVisible(true);
         Customer customer = customerDataDialog.getCustomer();
+        customerDataDialog.dispose();
 
         if (customerDataDialog.isSave()) {
 
@@ -58,11 +61,11 @@ public class CustomersDialog extends JDialog {
 
                 model.addCustomer(customer);
                 reloadCustomer();
-               // customerDataDialog.setVisible(false);
+               customerDataDialog.setVisible(false);
 
             } catch (SQLException ex) {
 
-                JOptionPane.showMessageDialog(rootPane, e.toString(), "Database error", JOptionPane.ERROR_MESSAGE);
+                dataBaseError(rootPane, ex);
 
             }
 
@@ -80,7 +83,7 @@ public class CustomersDialog extends JDialog {
 
         } catch (SQLException e) {
 
-            JOptionPane.showMessageDialog(rootPane, e.toString(), "Database error", JOptionPane.ERROR_MESSAGE);
+            dataBaseError(rootPane, e);
 
         }
 
@@ -114,7 +117,7 @@ public class CustomersDialog extends JDialog {
 
             } catch (SQLException ex) {
 
-                JOptionPane.showMessageDialog(rootPane, e.toString(), "Database error", JOptionPane.ERROR_MESSAGE);
+                dataBaseError(rootPane, ex);
 
             }
 
@@ -147,7 +150,7 @@ public class CustomersDialog extends JDialog {
 
             } catch (SQLException ex) {
 
-                JOptionPane.showMessageDialog(rootPane, e.toString(), "Database error", JOptionPane.ERROR_MESSAGE);
+                dataBaseError(rootPane, ex);
 
             }
 

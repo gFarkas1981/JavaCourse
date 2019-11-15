@@ -22,6 +22,12 @@ public class Mainwindow extends JFrame {
 
     private IModel model;
 
+    public static void dataBaseError(JRootPane rootPane, SQLException e) {
+
+        dataBaseError(rootPane, e);
+
+    }
+
     public Mainwindow() {
 
         super();
@@ -47,7 +53,7 @@ public class Mainwindow extends JFrame {
 
         } catch (SQLException e) {
 
-            JOptionPane.showMessageDialog(getRootPane(), e.toString(), "Database error", JOptionPane.ERROR_MESSAGE);
+            dataBaseError(rootPane, e);
             System.exit(0);
 
         }

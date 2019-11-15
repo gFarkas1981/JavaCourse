@@ -4,13 +4,11 @@
 
 package com.gfarkas.gui;
 
-import java.awt.event.*;
 import com.gfarkas.model.Customer;
-import com.sun.glass.ui.InvokeLaterDispatcher;
 
-import java.awt.*;
 import javax.swing.*;
-import javax.swing.GroupLayout;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 
 /**
  * @author unknown
@@ -19,12 +17,21 @@ public class CustomerDataDialog extends JDialog {
 
     private Customer customer;
     private boolean save;
+    // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
+    // Generated using JFormDesigner Evaluation license - unknown
+    private JLabel nameJLabel;
+    private JLabel emailJLabel;
+    private JTextField nameJTextField;
+    private JTextField emailJTextField;
+    private JButton cancelJButton;
+    private JButton saveJButton;
 
     public CustomerDataDialog(java.awt.Dialog dialog, Customer customer) {
         super(dialog, true);
         initComponents();
 
         setLocationRelativeTo(dialog);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         this.customer = customer;
         save = false;
@@ -46,7 +53,7 @@ public class CustomerDataDialog extends JDialog {
 
     private void cancelJButtonActionPerformed(ActionEvent e) {
 
-        setVisible(false);
+        dispose();
 
     }
 
@@ -100,61 +107,52 @@ public class CustomerDataDialog extends JDialog {
         //---- saveJButton ----
         saveJButton.setText("Save");
         saveJButton.addActionListener(e -> {
-			saveJButtonActionPerformed(e);
-			saveJButtonActionPerformed(e);
-		});
+            saveJButtonActionPerformed(e);
+            saveJButtonActionPerformed(e);
+        });
 
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
         contentPane.setLayout(contentPaneLayout);
         contentPaneLayout.setHorizontalGroup(
-            contentPaneLayout.createParallelGroup()
-                .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(contentPaneLayout.createParallelGroup()
-                        .addComponent(nameJLabel)
-                        .addComponent(emailJLabel))
-                    .addGap(8, 8, 8)
-                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(emailJTextField, GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
+                contentPaneLayout.createParallelGroup()
                         .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(0, 129, Short.MAX_VALUE)
-                            .addComponent(saveJButton)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(cancelJButton))
-                        .addComponent(nameJTextField, GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE))
-                    .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addContainerGap()
+                                .addGroup(contentPaneLayout.createParallelGroup()
+                                        .addComponent(nameJLabel)
+                                        .addComponent(emailJLabel))
+                                .addGap(8, 8, 8)
+                                .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(emailJTextField, GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
+                                        .addGroup(contentPaneLayout.createSequentialGroup()
+                                                .addGap(0, 129, Short.MAX_VALUE)
+                                                .addComponent(saveJButton)
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(cancelJButton))
+                                        .addComponent(nameJTextField, GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE))
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         contentPaneLayout.setVerticalGroup(
-            contentPaneLayout.createParallelGroup()
-                .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(contentPaneLayout.createParallelGroup()
+                contentPaneLayout.createParallelGroup()
                         .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addComponent(nameJLabel)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(emailJLabel))
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addComponent(nameJTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(emailJTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-                    .addGap(18, 18, 18)
-                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(cancelJButton)
-                        .addComponent(saveJButton))
-                    .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addContainerGap()
+                                .addGroup(contentPaneLayout.createParallelGroup()
+                                        .addGroup(contentPaneLayout.createSequentialGroup()
+                                                .addComponent(nameJLabel)
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(emailJLabel))
+                                        .addGroup(contentPaneLayout.createSequentialGroup()
+                                                .addComponent(nameJTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(emailJTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)
+                                .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(cancelJButton)
+                                        .addComponent(saveJButton))
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
-
-    // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - unknown
-    private JLabel nameJLabel;
-    private JLabel emailJLabel;
-    private JTextField nameJTextField;
-    private JTextField emailJTextField;
-    private JButton cancelJButton;
-    private JButton saveJButton;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }

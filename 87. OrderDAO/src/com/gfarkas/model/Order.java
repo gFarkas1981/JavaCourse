@@ -9,8 +9,13 @@ public class Order implements Serializable {
     private int amount;
     private int pieces;
     private boolean complete;
+    private Customer customer;
 
     public Order() {
+    }
+
+    public Order(Customer customer) {
+        this.customer = customer;
     }
 
     public Order(int id, int customerId, int amount, int pieces, boolean complete) {
@@ -23,6 +28,21 @@ public class Order implements Serializable {
 
     public Order(int customerId, int amount, int pieces, boolean complete) {
         this.customerId = customerId;
+        this.amount = amount;
+        this.pieces = pieces;
+        this.complete = complete;
+    }
+
+    public Order(int id, Customer customer, int amount, int pieces, boolean complete) {
+        this.id = id;
+        this.customer = customer;
+        this.amount = amount;
+        this.pieces = pieces;
+        this.complete = complete;
+    }
+
+    public Order(Customer customer, int amount, int pieces, boolean complete) {
+        this.customer = customer;
         this.amount = amount;
         this.pieces = pieces;
         this.complete = complete;
@@ -66,6 +86,14 @@ public class Order implements Serializable {
 
     public void setComplete(boolean complete) {
         this.complete = complete;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     @Override
