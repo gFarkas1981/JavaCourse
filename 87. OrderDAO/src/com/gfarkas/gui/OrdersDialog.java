@@ -179,12 +179,12 @@ public class OrdersDialog extends JDialog {
         try {
 
             List<Customer> customers = model.getAllCustomer();
-            OrderDataDialog orderDataDialog = new OrderDataDialog(this, customers);
-            orderDataDialog.setVisible(true);
+            OrdersDataDialog ordersDataDialog = new OrdersDataDialog(this, customers);
+            ordersDataDialog.setVisible(true);
 
-            if (orderDataDialog.isSave()) {
+            if (ordersDataDialog.isSave()) {
 
-                Order order = orderDataDialog.getOrder();
+                Order order = ordersDataDialog.getOrder();
                 model.addOrder(order);
                 reloadOrders(null);
 

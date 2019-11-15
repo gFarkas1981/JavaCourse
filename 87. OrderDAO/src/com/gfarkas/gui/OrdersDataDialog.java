@@ -5,23 +5,75 @@
 package com.gfarkas.gui;
 
 import java.awt.*;
+import java.awt.event.*;
+import com.gfarkas.model.Customer;
+import com.gfarkas.model.Order;
+
+
 import javax.swing.*;
 import javax.swing.GroupLayout;
+import java.util.List;
 
 /**
  * @author unknown
  */
-public class OrdersDataDialog {
-    public OrdersDataDialog(Window owner) {
-        super(owner);
+public class OrdersDataDialog extends JDialog{
+    private Order order;
+    private boolean save;
+
+    public boolean isSave() {
+        return save;
+    }
+
+    public OrdersDataDialog(java.awt.Dialog dialog, List<Customer> customerList) {
+
+        super(dialog, true);
         initComponents();
+
+        save = false;
+
+        setLocationRelativeTo(dialog);
+
+
+
+        setTitle("Add new order");
+
+
+        customersComboBox.setModel(new DefaultComboBoxModel(customerList.toArray()));
+
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    private void saveButtonActionPerformed(ActionEvent e) {
+
+        save = true;
+
+        Customer selected = (Customer) customersComboBox.getSelectedItem();
+
+        order = new Order();
+        order.setCustomer(selected);
+        order.setAmount(Integer.parseInt(amountTextField.getText()));
+        order.setPieces(Integer.parseInt(piecesTextField.getText()));
+        order.setComplete(isCompleteCheckBox.isEnabled());
+        setVisible(false);
+
+
+    }
+
+    private void cancelButtonActionPerformed(ActionEvent e) {
+
+        setVisible(false);
+
     }
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - unknown
         customerList = new JDialog();
-        comboBox1 = new JComboBox();
+        customersComboBox = new JComboBox();
         customerLabel = new JLabel();
         saveButton = new JButton();
         cancelButton = new JButton();
@@ -29,7 +81,7 @@ public class OrdersDataDialog {
         amountTextField = new JTextField();
         piecesTextField = new JTextField();
         piecesLabel = new JLabel();
-        checkBox1 = new JCheckBox();
+        isCompleteCheckBox = new JCheckBox();
 
         //======== customerList ========
         {
@@ -40,9 +92,11 @@ public class OrdersDataDialog {
 
             //---- saveButton ----
             saveButton.setText("Save");
+            saveButton.addActionListener(e -> saveButtonActionPerformed(e));
 
             //---- cancelButton ----
             cancelButton.setText("Cancel");
+            cancelButton.addActionListener(e -> cancelButtonActionPerformed(e));
 
             //---- amountLabel ----
             amountLabel.setText("Amount:");
@@ -50,10 +104,10 @@ public class OrdersDataDialog {
             //---- piecesLabel ----
             piecesLabel.setText("Pieces:");
 
-            //---- checkBox1 ----
-            checkBox1.setText("Complete     ");
-            checkBox1.setHorizontalAlignment(SwingConstants.LEFT);
-            checkBox1.setHorizontalTextPosition(SwingConstants.LEADING);
+            //---- isCompleteCheckBox ----
+            isCompleteCheckBox.setText("Complete     ");
+            isCompleteCheckBox.setHorizontalAlignment(SwingConstants.LEFT);
+            isCompleteCheckBox.setHorizontalTextPosition(SwingConstants.LEADING);
 
             GroupLayout customerListContentPaneLayout = new GroupLayout(customerListContentPane);
             customerListContentPane.setLayout(customerListContentPaneLayout);
@@ -62,7 +116,7 @@ public class OrdersDataDialog {
                     .addGroup(GroupLayout.Alignment.TRAILING, customerListContentPaneLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(customerListContentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                            .addComponent(checkBox1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(isCompleteCheckBox, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(amountLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(customerLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(piecesLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -70,7 +124,7 @@ public class OrdersDataDialog {
                             .addGroup(customerListContentPaneLayout.createSequentialGroup()
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(customerListContentPaneLayout.createParallelGroup()
-                                    .addComponent(comboBox1, GroupLayout.PREFERRED_SIZE, 602, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(customersComboBox, GroupLayout.PREFERRED_SIZE, 602, GroupLayout.PREFERRED_SIZE)
                                     .addComponent(amountTextField, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
                                     .addComponent(piecesTextField, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)))
                             .addGroup(customerListContentPaneLayout.createSequentialGroup()
@@ -86,7 +140,7 @@ public class OrdersDataDialog {
                         .addGap(25, 25, 25)
                         .addGroup(customerListContentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                             .addComponent(customerLabel)
-                            .addComponent(comboBox1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                            .addComponent(customersComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(customerListContentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                             .addComponent(amountLabel)
@@ -97,7 +151,7 @@ public class OrdersDataDialog {
                             .addComponent(piecesTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(customerListContentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                            .addComponent(checkBox1)
+                            .addComponent(isCompleteCheckBox)
                             .addGroup(customerListContentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                 .addComponent(saveButton)
                                 .addComponent(cancelButton)))
@@ -112,7 +166,7 @@ public class OrdersDataDialog {
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
     // Generated using JFormDesigner Evaluation license - unknown
     private JDialog customerList;
-    private JComboBox comboBox1;
+    private JComboBox customersComboBox;
     private JLabel customerLabel;
     private JButton saveButton;
     private JButton cancelButton;
@@ -120,6 +174,6 @@ public class OrdersDataDialog {
     private JTextField amountTextField;
     private JTextField piecesTextField;
     private JLabel piecesLabel;
-    private JCheckBox checkBox1;
+    private JCheckBox isCompleteCheckBox;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }

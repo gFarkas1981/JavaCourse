@@ -4,12 +4,12 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JDialog", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq t {space :::p, par t {comp checkBox1:::::x, comp amountLabel:::::x, comp customerLabel:::::x, comp piecesLabel:::::x}, par l {seq {space :::p, par l {comp comboBox1:::p:602:p, comp amountTextField::l:p:144:p, comp piecesTextField:::p:144:p}}, seq l {space :p:334:p, comp saveButton:::p::p, space :p:41:p, comp cancelButton:::p::p}}, space :p:233:p}}"
-			"$verticalGroup": "par l {seq l {space :p:25:p, par b {comp customerLabel::b:p::p, comp comboBox1::b:p::p}, space s:::p, par b {comp amountLabel::b:p::p, comp amountTextField::b:p::p}, space s:::p, par b {comp piecesLabel::b:p::p, comp piecesTextField::b:p::p}, space :::p, par t {comp checkBox1:::p::p, par b {comp saveButton::b:p::p, comp cancelButton::b:p::p}}, space ::25:x}}"
+			"$horizontalGroup": "par l {seq t {space :::p, par t {comp isCompleteCheckBox:::::x, comp amountLabel:::::x, comp customerLabel:::::x, comp piecesLabel:::::x}, par l {seq {space :::p, par l {comp customersComboBox:::p:602:p, comp amountTextField::l:p:144:p, comp piecesTextField:::p:144:p}}, seq l {space :p:334:p, comp saveButton:::p::p, space :p:41:p, comp cancelButton:::p::p}}, space :p:233:p}}"
+			"$verticalGroup": "par l {seq l {space :p:25:p, par b {comp customerLabel::b:p::p, comp customersComboBox::b:p::p}, space s:::p, par b {comp amountLabel::b:p::p, comp amountTextField::b:p::p}, space s:::p, par b {comp piecesLabel::b:p::p, comp piecesTextField::b:p::p}, space :::p, par t {comp isCompleteCheckBox:::p::p, par b {comp saveButton::b:p::p, comp cancelButton::b:p::p}}, space ::25:x}}"
 		} ) {
 			name: "customerList"
 			add( new FormComponent( "javax.swing.JComboBox" ) {
-				name: "comboBox1"
+				name: "customersComboBox"
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "customerLabel"
@@ -18,10 +18,12 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "saveButton"
 				"text": "Save"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "saveButtonActionPerformed", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "cancelButton"
 				"text": "Cancel"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "cancelButtonActionPerformed", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "amountLabel"
@@ -38,7 +40,7 @@ new FormModel {
 				"text": "Pieces:"
 			} )
 			add( new FormComponent( "javax.swing.JCheckBox" ) {
-				name: "checkBox1"
+				name: "isCompleteCheckBox"
 				"text": "Complete     "
 				"horizontalAlignment": 2
 				"horizontalTextPosition": 10
