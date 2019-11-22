@@ -180,43 +180,74 @@ public class RentalTimeJDialog extends javax.swing.JDialog {
 
     private void yearStartJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yearStartJComboBoxActionPerformed
 
-        if (yearStartJComboBox.getSelectedItem().toString().equals(String.valueOf(Calendar.getInstance().get(Calendar.YEAR)))) {
+        if (yearStartJComboBox.getSelectedItem() != null
+                && yearEndJComboBox.getSelectedItem() != null) {
 
-            monthStartJComboBox.removeAllItems();
+            if (Integer.parseInt(yearStartJComboBox.getSelectedItem().toString())
+                    > Integer.parseInt(yearEndJComboBox.getSelectedItem().toString())) {
 
-            int month = Calendar.getInstance().get(Calendar.MONTH);
+                yearEndJComboBox.removeAllItems();
+                yearEndJComboBox.addItem((String) yearStartJComboBox.getSelectedItem());
 
-            for (int i = month + 1; i <= 12; i++) {
+            } else {
 
-                monthStartJComboBox.addItem(String.valueOf(i));
-                monthEndJComboBox.addItem(String.valueOf(i));
+                int year = Calendar.getInstance().get(Calendar.YEAR);
+                yearEndJComboBox.removeAllItems();
+                yearEndJComboBox.addItem(String.valueOf(year));
+                yearEndJComboBox.addItem(String.valueOf(year + 1));
 
             }
 
-        } else {
+            if (yearStartJComboBox.getSelectedItem().toString().equals(String.valueOf(Calendar.getInstance().get(Calendar.YEAR)))) {
 
-            monthStartJComboBox.removeAllItems();
-            
-            for (int i = 1; i <= 12; i++) {
+                monthStartJComboBox.removeAllItems();
 
-                monthStartJComboBox.addItem(String.valueOf(i));
-                monthEndJComboBox.addItem(String.valueOf(i));
+                int month = Calendar.getInstance().get(Calendar.MONTH);
+
+                for (int i = month + 1; i <= 12; i++) {
+
+                    monthStartJComboBox.addItem(String.valueOf(i));
+                    monthEndJComboBox.addItem(String.valueOf(i));
+
+                }
+
+            } else {
+
+                monthStartJComboBox.removeAllItems();
+
+                for (int i = 1; i <= 12; i++) {
+
+                    monthStartJComboBox.addItem(String.valueOf(i));
+                    monthEndJComboBox.addItem(String.valueOf(i));
+
+                }
 
             }
 
         }
-        
-        
+
     }//GEN-LAST:event_yearStartJComboBoxActionPerformed
 
     private void yearEndJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yearEndJComboBoxActionPerformed
-        if (Integer.valueOf(yearStartJComboBox.getSelectedItem().toString()) > 
-                Integer.valueOf(yearEndJComboBox.getSelectedItem().toString())) {
-            
-            yearEndJComboBox.removeAllItems();
-            yearEndJComboBox.addItem((String) yearStartJComboBox.getSelectedItem());
-            
-            
+
+        if (yearStartJComboBox.getSelectedItem() != null
+                && yearEndJComboBox.getSelectedItem() != null) {
+
+            if (Integer.parseInt(yearStartJComboBox.getSelectedItem().toString())
+                    > Integer.parseInt(yearEndJComboBox.getSelectedItem().toString())) {
+
+                yearEndJComboBox.removeAllItems();
+                yearEndJComboBox.addItem((String) yearStartJComboBox.getSelectedItem());
+
+            } else {
+
+                int year = Calendar.getInstance().get(Calendar.YEAR);
+                yearEndJComboBox.removeAllItems();
+                yearEndJComboBox.addItem(String.valueOf(year));
+                yearEndJComboBox.addItem(String.valueOf(year + 1));
+
+            }
+
         }
     }//GEN-LAST:event_yearEndJComboBoxActionPerformed
 
