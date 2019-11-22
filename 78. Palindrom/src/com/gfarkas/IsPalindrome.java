@@ -2,7 +2,12 @@ package com.gfarkas;
 
 public class IsPalindrome {
 
-    public boolean IsPalindrome(String text) {
+    public IsPalindrome() {
+
+
+    }
+
+    public boolean isPalindrome(String text) {
 
         text = text.replaceAll("[,! ]","");
         boolean isPalindrome = true;

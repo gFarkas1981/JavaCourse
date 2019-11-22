@@ -5,8 +5,6 @@
  */
 package swingtrafficlights;
 
-import javax.swing.*;
-
 /**
  *
  * @author Gabor Farkas <info@gfarkas.com>
@@ -32,15 +30,13 @@ public class MainWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
 
-        trafficLight1 = new swingtrafficlights.TrafficLights1();
-        trafficLight2 = new swingtrafficlights.TrafficLights2();
-        trafficLight3 = new swingtrafficlights.TrafficLights3();
-        trafficLight4 = new swingtrafficlights.TrafficLights4();
+        trafficLight = new TrafficLight();
+
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout trafficLight1Layout = new javax.swing.GroupLayout(trafficLight1);
-        trafficLight1.setLayout(trafficLight1Layout);
+        javax.swing.GroupLayout trafficLight1Layout = new javax.swing.GroupLayout(trafficLight);
+        trafficLight.setLayout(trafficLight1Layout);
         trafficLight1Layout.setHorizontalGroup(
                 trafficLight1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGap(0, 221, Short.MAX_VALUE)
@@ -50,67 +46,11 @@ public class MainWindow extends javax.swing.JFrame {
                         .addGap(0, 284, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout trafficLight2Layout = new javax.swing.GroupLayout(trafficLight2);
-        trafficLight2.setLayout(trafficLight2Layout);
-        trafficLight2Layout.setHorizontalGroup(
-                trafficLight2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 221, Short.MAX_VALUE)
-        );
-        trafficLight2Layout.setVerticalGroup(
-                trafficLight2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 284, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout trafficLight3Layout = new javax.swing.GroupLayout(trafficLight3);
-        trafficLight3.setLayout(trafficLight3Layout);
-        trafficLight3Layout.setHorizontalGroup(
-                trafficLight3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 221, Short.MAX_VALUE)
-        );
-        trafficLight3Layout.setVerticalGroup(
-                trafficLight3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 284, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout trafficLight4Layout = new javax.swing.GroupLayout(trafficLight4);
-        trafficLight4.setLayout(trafficLight4Layout);
-        trafficLight4Layout.setHorizontalGroup(
-                trafficLight4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 221, Short.MAX_VALUE)
-        );
-        trafficLight4Layout.setVerticalGroup(
-                trafficLight4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 284, Short.MAX_VALUE)
-        );
 
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
 
-        layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(trafficLight1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(trafficLight2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-
-                                .addComponent(trafficLight3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(trafficLight4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(439, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(trafficLight4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(trafficLight3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(trafficLight2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(trafficLight1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 271, Short.MAX_VALUE))
-        );
 
         pack();
     }// </editor-fold>
@@ -151,9 +91,6 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify
-    private swingtrafficlights.TrafficLights1 trafficLight1;
-    private swingtrafficlights.TrafficLights2 trafficLight2;
-    private swingtrafficlights.TrafficLights3 trafficLight3;
-    private swingtrafficlights.TrafficLights4 trafficLight4;
+    private TrafficLight trafficLight;
     // End of variables declaration
 }

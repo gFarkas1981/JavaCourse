@@ -11,7 +11,8 @@ public class Main {
         System.out.println("Please enter something!");
         String text = scanner.nextLine().toLowerCase();
 
-        System.out.println(new IsPalindrome(text));
+        IsPalindrome isPalindrome = new IsPalindrome();
+        System.out.println(isPalindrome.isPalindrome(text));
 
     }
 }
