@@ -1,34 +1,26 @@
-package swingtrafficlights;
+package server;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Server {
+public class ServerConnect {
+    
+    private String message;
 
-    private Socket socket;
-
-
-    public void openSocket() {
-
+    public ServerConnect() {
+        
         try {
-
 
             ServerSocket serverSocket = new ServerSocket(8888);
             System.out.println("Waiting for client connection...");
-            socket = serverSocket.accept();
-            System.out.println("Client connection succesfull!");
-
-
+            Socket socket = serverSocket.accept();
+            
         } catch (IOException e) {
 
             System.out.println("Network error");
 
         }
-
 
     }
 

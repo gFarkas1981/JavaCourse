@@ -5,6 +5,9 @@
  */
 package carrental.gui;
 
+
+import carrental.model.Car;
+import carrental.xml.ToXML;
 import carrental.model.DBModel;
 import carrental.model.IModel;
 import javax.swing.JDialog;
@@ -12,6 +15,9 @@ import javax.swing.JOptionPane;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -20,6 +26,7 @@ import java.sql.SQLException;
 public class MainWindow extends javax.swing.JFrame {
 
     private IModel model;
+    private ToXML toXML;
 
     public MainWindow() {
 
@@ -80,6 +87,11 @@ public class MainWindow extends javax.swing.JFrame {
         fileMenu.add(importMenuItem);
 
         exportMenuItem.setText("Export");
+        exportMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportMenuItemActionPerformed(evt);
+            }
+        });
         fileMenu.add(exportMenuItem);
 
         exitMenuItem.setText("Exit");
@@ -158,6 +170,21 @@ public class MainWindow extends javax.swing.JFrame {
         driverJDialog.setVisible(true);
 
     }//GEN-LAST:event_driverMenuMouseClicked
+
+    private void exportMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportMenuItemActionPerformed
+        
+        try {
+            
+            List<Car> cars = model.getAllCar();
+            new ToXML(cars);
+            
+        } catch (SQLException ex) {
+            
+            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+        
+    }//GEN-LAST:event_exportMenuItemActionPerformed
 
     /**
      * @param args the command line arguments

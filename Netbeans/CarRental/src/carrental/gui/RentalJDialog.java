@@ -290,8 +290,8 @@ public class RentalJDialog extends javax.swing.JDialog implements TableModelList
 
         try {
 
-            car = model.getCarMap().get(0);
-            driver = model.getDriverMap().get(0);
+            car = model.getAllCar().get(0);
+            driver = model.getAllDriver().get(0);
 
         } catch (SQLException ex) {
 
@@ -304,23 +304,9 @@ public class RentalJDialog extends javax.swing.JDialog implements TableModelList
 
         try {
 
-            model.addRental(rental);
-            Thread.sleep(200);
-            Map<Integer, Rental> rentalMap = model.getRentalMap();
-
-            for (Map.Entry<Integer, Rental> entry : rentalMap.entrySet()) {
-
-                if (entry.getKey() > id) {
-
-                    id = entry.getKey();
-
-                }
-
-            }
-
-            rentals = model.getAllRental();
-
-        } catch (SQLException | InterruptedException ex) {
+            id = model.addRental(rental);
+            
+        } catch (SQLException ex) {
 
             MainWindow.networkError(this, ex);
 
